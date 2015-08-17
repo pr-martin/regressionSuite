@@ -1,0 +1,31 @@
+--- RCPTT testcase ---
+Format-Version: 1.0
+Context-Type: org.eclipse.rcptt.ctx.workbench
+Element-Name: workbenchContext
+Element-Type: context
+Element-Version: 2.0
+Id: _EuNjYDfSEeWT4aV3AavmaQ
+Runtime-Version: 2.0.0.201506120617
+Save-Time: 8/5/15 1:58 PM
+
+------=_.description-216f885c-d591-38ce-8ea2-e4f8cb4d6ffa
+Content-Type: text/plain
+Entry-Name: .description
+
+Context used to configure the OSATE Workbench to insure proper views are available for running the Regression tests.
+This should be set as a Default Context in the Project settings so that all test cases will use this.
+------=_.description-216f885c-d591-38ce-8ea2-e4f8cb4d6ffa--
+------=_.q7.content-3d2e0690-ce48-3609-83e0-c704d49f1eaf
+Content-Type: q7/binary
+Entry-Name: .q7.content
+
+UEsDBBQACAgIAAAAIQAAAAAAAAAAAAAAAAAIAAAALmNvbnRlbnSVU0tP3DAQviP1P1i+16GUA1oloFXZ
+AxLlLaCnyjizWYPtiexJsvx7JtkNbKm20FPkz99rbCc/WnonWojJYijkN7UrBQSDpQ1VIRuafz2QR4df
+dnKMlQLjbJ1ARVMTqWQg6Ghxcofx6YFFix8YCJYklt5OXi33eksOCWnCeCEXRPUky7quU+grxb7Z/c+T
+kbI95lU5bvfKgZJ5LMFlI5H1GEGKoD0UsntXTgpbFvL3rDl7/HU8v57B3c2+vv0+1a3Xl1LUXLsGQ7aF
+E+b1dTBpAtVYtbGnprp0F29rKSIkoA2kkHPtEkg+OyHy1kKXDjeHY78BVBcR2ZierxcAlGcr5jvRqsKy
+7680J+8NddbCnrbqswZuGfinERo+p6DXBa5m09MrSI2j9KGSY4NubaUJ45B5Nq62yP4ad7iGQOcNORvg
+syoe7cGB39LPoFcRzVMHzhl0bJyUJqN0FQGUDto9J5vWVgP48bxjhbrkh9gEsh7UKVafUHBpgyGhg37Y
+/vunKM/+419i/gtQSwcIIc0i1IkBAACjAwAAUEsBAhQAFAAICAgAAAAhACHNItSJAQAAowMAAAgAAAAA
+AAAAAAAAAAAAAAAAAC5jb250ZW50UEsFBgAAAAABAAEANgAAAL8BAAAAAA==
+------=_.q7.content-3d2e0690-ce48-3609-83e0-c704d49f1eaf--

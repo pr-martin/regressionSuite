@@ -1,0 +1,17 @@
+--- RCPTT testcase ---
+Format-Version: 1.0
+Element-Name: ts_Pilot_Flying
+Element-Type: testsuite
+Element-Version: 2.0
+Id: _ePCoUDr-EeWXouf3h8VfIg
+Runtime-Version: 2.0.0.201506120617
+Save-Time: 8/4/15 4:15 PM
+
+------=_testcase-items-62c497da-4241-31f4-811a-6b453a3ecff8
+Content-Type: text/testcase
+Entry-Name: testcase-items
+
+_-lyOgDrwEeWsldGxT6CvrA	// kind: 'test' name: 'tc_Pilot_Flying' path: 'tc_Pilot_Flying.test'
+_z2pLQDrwEeWsldGxT6CvrA	// kind: 'test' name: 'tc_Signals' path: 'tc_Signals.test'
+
+------=_testcase-items-62c497da-4241-31f4-811a-6b453a3ecff8--

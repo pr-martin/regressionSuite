@@ -1,0 +1,99 @@
+--- RCPTT testcase ---
+Format-Version: 1.0
+Context-Type: org.eclipse.rcptt.ctx.ecl
+Element-Name: testConfig
+Element-Type: context
+Element-Version: 2.0
+Id: _oxVyADoEEeWfbOeCsfgo5Q
+Runtime-Version: 2.0.0.201506120617
+Save-Time: 8/5/15 2:00 PM
+
+------=_.description-216f885c-d591-38ce-8ea2-e4f8cb4d6ffa
+Content-Type: text/plain
+Entry-Name: .description
+
+Procedures for test case setup and teardown.
+This should be set as a Default Context in the Project Settings.
+
+------=_.description-216f885c-d591-38ce-8ea2-e4f8cb4d6ffa--
+------=_.ecl.context-718f04b4-ed39-33e3-af62-0995e4561998
+Content-Type: text/ecl
+Entry-Name: .ecl.context
+
+// ----------------------------------------------------------------------------
+// Desription:
+// This file contains the rountines that are expected to be used for 
+// common test setup and teardown (cleanup). Typically set as a
+// Default Context for RCPTT.
+// ----------------------------------------------------------------------------
+
+
+
+// ----------------------------------------------------------------------------
+// Performs steps for setting up each individual unit test.
+// 
+// Usage:
+// Must be explicitly called at the beginning of a Test Case.
+// ----------------------------------------------------------------------------
+proc "test-setup" {
+    undecorate-git
+}
+
+
+// ----------------------------------------------------------------------------
+// Performs steps for teardown (cleanup) following a unit test.
+//
+// Usage: 
+// Must be explicitly called at the end of a Test Case.
+// ----------------------------------------------------------------------------
+proc "test-teardown" {
+    decorate-git
+}
+
+
+// ----------------------------------------------------------------------------
+// Undecorates the git paths in the Eclipse Explorers/Navigators
+//
+// Description:
+// Opens the Eclipse Preferences and removes the Label Decorations
+// for git.
+//
+// Usage:
+// Called to remove the git decorations so that files/modules may be opened
+// without having to know the git path. Typically called prior to using other
+// procedures that may have a hard-coded file/module name.
+// ----------------------------------------------------------------------------
+proc "undecorate-git" {
+    get-preferences-menu | click
+    with [get-window Preferences] {
+        get-tree | select "General/Appearance/Label Decorations"
+        get-table | get-item Git | uncheck
+        get-button Apply | click
+        get-button OK | click
+    }
+}
+
+
+// ----------------------------------------------------------------------------
+// Restores the git decorations in the Eclipse Explorers/Navigators
+//
+// Description:
+// Opens the Eclipse Preferences and turns on the Label Decorations
+// for git.
+//
+// Usage:
+// Called to restore the git decorations. Typically called at the end of a
+// test case to restore the git decorations which are the default for the
+// workspaces.
+// ----------------------------------------------------------------------------
+proc "decorate-git" {
+    get-preferences-menu | click
+    with [get-window Preferences] {
+        get-tree | select "General/Appearance/Label Decorations"
+        get-table | get-item Git | check
+        get-button Apply | click
+        get-button OK | click
+    }
+}
+
+------=_.ecl.context-718f04b4-ed39-33e3-af62-0995e4561998--

@@ -1,0 +1,255 @@
+--- RCPTT testcase ---
+Format-Version: 1.0
+Context-Type: org.eclipse.rcptt.ctx.ecl
+Element-Name: userProcs
+Element-Type: context
+Element-Version: 2.0
+Id: _L6g0ADotEeWfbOeCsfgo5Q
+Runtime-Version: 2.0.0.201506120617
+Save-Time: 8/5/15 2:00 PM
+
+------=_.description-216f885c-d591-38ce-8ea2-e4f8cb4d6ffa
+Content-Type: text/plain
+Entry-Name: .description
+
+Procedures for use in test cases.
+This should be set as a Default Context in the Project Settings.
+
+------=_.description-216f885c-d591-38ce-8ea2-e4f8cb4d6ffa--
+------=_.ecl.context-718f04b4-ed39-33e3-af62-0995e4561998
+Content-Type: text/ecl
+Entry-Name: .ecl.context
+
+// ----------------------------------------------------------------------------
+// Description:
+// This file contains the procedures for use in the RCPTT Test Cases
+// ----------------------------------------------------------------------------
+
+
+// ----------------------------------------------------------------------------
+// Selects a file from the AADL Navigator
+//
+// Decription:
+// Selects a file (typically AADL) from the AADL Navigator. This is typically
+// at the beginning of an RCPTT Test Case to open the file.
+//
+// Assumptions:
+// - The OSATE Workspace is configured for AADL 
+//   see workbenchContext.ctx
+// - The file selected is *.aadl
+//
+// Arguments:
+// str filename - The filename, including the full-tree name in the Navigator
+// ----------------------------------------------------------------------------
+proc "select-aadl-file" [val filename] {
+    get-view "AADL Navigator" | get-tree | select $filename | double-click
+}
+
+
+// ----------------------------------------------------------------------------
+// Selects the System Implementation from the Outline View
+//
+// Description:
+// Selects a specific itme from the Outline View, typically a
+// System Implementation. Used prior to making any AGREE related
+// procedure calls.
+//
+// Assumptions:
+// - The OSATE Workspace is configured for AADL
+//   see workbenchContext.ctx
+//
+// Arguments:
+// str implName - The System Implementation name to select
+// ----------------------------------------------------------------------------
+proc "select-sys-impl" [val implName] {
+    get-view Outline | get-tree | get-item $implName | select-item 
+}
+
+
+// ----------------------------------------------------------------------------
+// Runs AGREE Single Layer and asserts guarantees and consistency are valid
+//
+// Description:
+// Scans the Outline view for each system implementation then performs: 
+// right-click -> AGREE -> Verify Single Layer
+// Asserts that Contract Guarantees are valid in AGREE Results view
+// Asserts that Contract Consistency is valid in AGREE Results view 
+//
+// Assumptions:
+// - The OSATE Workspace in configured for AADL
+//   see workbenchContext.ctx
+// - An AADL file has been selected
+//   see procedure "select-aadl-file"
+// ----------------------------------------------------------------------------
+proc "run-verify-agree-single-layer" {
+
+    get-view Outline | get-tree | get-items | foreach [val item] {
+
+        if [is-system-impl $item] {
+
+            run-agree-single-layer $item
+            is-contract-guarantees-valid | verify-true
+            is-contract-consistency-valid | verify-true
+        }
+    }
+}
+
+
+// ----------------------------------------------------------------------------
+// Runs AGREE Single Layer and asserts guarantees are valid
+//
+// Description:
+// Scans the Outline view for each system implementation then performs: 
+// right-click -> AGREE -> Verify Single Layer
+// Asserts the Contract Guarantees in AGREE Results view
+//
+// Assumptions:
+// - The OSATE Workspace in configured for AADL
+//   see workbenchContext.ctx
+// - An AADL file has been selected
+//   see procedure "select-aadl-file"
+//
+// Arguments:
+// bool condition - condition to assert
+// ----------------------------------------------------------------------------
+proc "run-verify-guarantees-single-layer" [val condition[bool true]] {
+
+    get-view Outline | get-tree | get-items | foreach [val item] {
+
+        if [is-system-impl $item] {
+
+            run-agree-single-layer $item
+            if $condition {
+                is-contract-guarantees-valid | verify-true
+            } -else {
+                is-contract-guarantees-valid | verify-false
+            }
+        }
+    }
+}
+
+
+// ----------------------------------------------------------------------------
+// Runs AGREE Single Layer and asserts consistency is valid
+//
+// Description:
+// Scans the Outline view for each system implementation then performs: 
+// right-click -> AGREE -> Verify Single Layer
+// Asserts the Contract Consistency in AGREE Results view 
+//
+// Assumptions:
+// - The OSATE Workspace in configured for AADL
+//   see workbenchContext.ctx
+// - An AADL file has been selected
+//   see procedure "select-aadl-file"
+//
+// Arguments:
+// bool condition - condition to assert
+// ----------------------------------------------------------------------------
+proc "run-verify-consistency-single-layer" [val condition[bool true]] {
+
+    get-view Outline | get-tree | get-items | foreach [val item] {
+
+        if [is-system-impl $item] {
+
+            run-agree-single-layer $item
+            if $condition {
+                is-contract-consistency-valid | verify-true
+            } -else {
+                is-contract-consistency-valid | verify-false
+            }
+        }
+    }
+}
+
+
+// ----------------------------------------------------------------------------
+// Runs AGREE All Layers and asserts guarantees and consistency are valid
+//
+// Description:
+// Scans the Outline view for each system implementation then performs: 
+// right-click -> AGREE -> Verify All Layers
+// Asserts that Contract Guarantees are valid in AGREE Results view
+// Asserts that Contract Consistency is valid in AGREE Results view 
+//
+// Assumptions:
+// - The OSATE Workspace in configured for AADL
+//   see workbenchContext.ctx
+// - An AADL file has been selected
+//   see procedure "select-aadl-file"
+// ----------------------------------------------------------------------------
+proc "run-verify-agree-all-layers" {
+
+    get-view Outline | get-tree | get-items | foreach [val item] {
+
+        if [is-system-impl $item] {
+
+            run-agree-all-layers $item
+            verify-contract-guarantees
+            verify-contract-consistency
+        }
+    }
+}
+
+
+// ----------------------------------------------------------------------------
+// Runs AGREE All Layers and asserts guarantees are valid
+//
+// Description:
+// Scans the Outline view for each system implementation then performs: 
+// right-click -> AGREE -> Verify All Layers
+// Asserts th Contract Guarantees in AGREE Results view 
+//
+// Assumptions:
+// - The OSATE Workspace in configured for AADL
+//   see workbenchContext.ctx
+// - An AADL file has been selected
+//   see procedure "select-aadl-file"
+//
+// Arguments:
+// bool condition - condition to assert
+// ----------------------------------------------------------------------------
+proc "run-verify-guarantees-all-layers" [val condition[bool true]] {
+
+    get-view Outline | get-tree | get-items | foreach [val item] {
+
+        if [is-system-impl $item] {
+
+            run-agree-all-layers $item
+            verify-contract-guarantees $condition
+        }
+    }
+}
+
+
+// ----------------------------------------------------------------------------
+// Runs AGREE All Layers and asserts consistency is valid
+//
+// Description:
+// Scans the Outline view for each system implementation then performs: 
+// right-click -> AGREE -> Verify All Layers
+// Asserts that Contract Guarantees are valid in AGREE Results view
+// Asserts the Contract Consistency in AGREE Results view 
+//
+// Assumptions:
+// - The OSATE Workspace in configured for AADL
+//   see workbenchContext.ctx
+// - An AADL file has been selected
+//   see procedure "select-aadl-file"
+//
+// Arguments:
+// bool condition - condition to assert
+// ----------------------------------------------------------------------------
+proc "run-verify-consistency-all-layers" [val condition[bool true]] {
+
+    get-view Outline | get-tree | get-items | foreach [val item] {
+
+        if [is-system-impl $item] {
+
+            run-agree-all-layers $item
+            verify-contract-consistency $condition
+        }
+    }
+}
+
+------=_.ecl.context-718f04b4-ed39-33e3-af62-0995e4561998--
