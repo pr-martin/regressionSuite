@@ -6,7 +6,7 @@ Element-Type: context
 Element-Version: 2.0
 Id: _2UF_4DbkEeWPP_kFBF0hLg
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 8/5/15 2:00 PM
+Save-Time: 8/18/15 8:10 AM
 
 ------=_.description-216f885c-d591-38ce-8ea2-e4f8cb4d6ffa
 Content-Type: text/plain
@@ -78,32 +78,38 @@ proc "is-system-impl" [val tree_item] {
 proc "is-agree-working" {
 
     or
+    // Working
     [get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
         if [$item | get-text | contains "Contract Guarantees"] { 
             $item | get-property "columns[1]" -raw | contains "Working" 
         }
     }]
     [get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
-        if [$item | get-text | contains "Contract Consistency"] { 
+        if [$item | get-text | contains "This component consistent"] { 
             $item | get-property "columns[1]" -raw | contains "Working" 
         }
     }]
+    [get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
+        if [$item | get-text | contains "Component composition consistent"] { 
+            $item | get-property "columns[1]" -raw | contains "Working" 
+        }
+    }]
+    // Waiting
     [get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
         if [$item | get-text | contains "Contract Guarantees"] { 
             $item | get-property "columns[1]" -raw | contains "Waiting" 
         }
     }]
     [get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
-        if [$item | get-text | contains "Contract Consistency"] { 
+        if [$item | get-text | contains "This component consistent"] { 
             $item | get-property "columns[1]" -raw | contains "Waiting" 
         }
     }]
-
-    // Only works for Single Layer
-    //or[get-view "AGREE Results" | get-tree | get-item "Contract Guarantees" | get-property "columns[1]" -raw | contains "Working" ]
-    //  [get-view "AGREE Results" | get-tree | get-item "Contract Guarantees" | get-property "columns[1]" -raw | contains "Waiting" ]
-    //  [get-view "AGREE Results" | get-tree | get-item "Contract Consistency" | get-property "columns[1]" -raw | contains "Working" ]
-    //  [get-view "AGREE Results" | get-tree | get-item "Contract Consistency" | get-property "columns[1]" -raw | contains "Waiting" ]
+        [get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
+        if [$item | get-text | contains "Component composition consistent"] { 
+            $item | get-property "columns[1]" -raw | contains "Waiting" 
+        }
+    }]
 }
 
 
@@ -227,8 +233,10 @@ proc "is-contract-guarantees-valid" {
 // ----------------------------------------------------------------------------
 proc "is-contract-consistency-valid" {
     wait-for-agree
-    and [get-view "AGREE Results" | get-tree | get-item "Contract Consistency" | get-property "columns[1]" -raw | contains "Valid"]
-        [get-view "AGREE Results" | get-tree | get-item "Contract Consistency" | get-property "columns[1]" -raw | contains "Invalid" | not]
+    and [get-view "AGREE Results" | get-tree | get-item "This component consistent" | get-property "columns[1]" -raw | contains "Valid"]
+        [get-view "AGREE Results" | get-tree | get-item "This component consistent" | get-property "columns[1]" -raw | contains "Invalid" | not]
+        [get-view "AGREE Results" | get-tree | get-item "Component composition consistent" | get-property "columns[1]" -raw | contains "Valid"]
+        [get-view "AGREE Results" | get-tree | get-item "Component composition consistent" | get-property "columns[1]" -raw | contains "Invalid" | not]
 }
 
 
