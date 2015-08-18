@@ -6,7 +6,7 @@ Element-Type: context
 Element-Version: 2.0
 Id: _2UF_4DbkEeWPP_kFBF0hLg
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 8/18/15 8:10 AM
+Save-Time: 8/18/15 11:56 AM
 
 ------=_.description-216f885c-d591-38ce-8ea2-e4f8cb4d6ffa
 Content-Type: text/plain
@@ -105,9 +105,25 @@ proc "is-agree-working" {
             $item | get-property "columns[1]" -raw | contains "Waiting" 
         }
     }]
-        [get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
+    [get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
         if [$item | get-text | contains "Component composition consistent"] { 
             $item | get-property "columns[1]" -raw | contains "Waiting" 
+        }
+    }]
+    // Blank
+    [get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
+        if [$item | get-text | contains "Contract Guarantees"] { 
+            $item | get-property "columns[1]" -raw | equals "" 
+        }
+    }]
+    [get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
+        if [$item | get-text | contains "This component consistent"] { 
+            $item | get-property "columns[1]" -raw | equals "" 
+        }
+    }]
+    [get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
+        if [$item | get-text | contains "Component composition consistent"] { 
+            $item | get-property "columns[1]" -raw | equals "" 
         }
     }]
 }
