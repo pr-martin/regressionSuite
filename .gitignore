@@ -4,3 +4,5 @@ instances
 *.sacm
 .#*
 TAGS
+junk.test
+record.test
