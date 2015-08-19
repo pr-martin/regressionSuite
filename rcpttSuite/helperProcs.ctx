@@ -6,7 +6,7 @@ Element-Type: context
 Element-Version: 2.0
 Id: _2UF_4DbkEeWPP_kFBF0hLg
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 8/19/15 1:36 PM
+Save-Time: 8/19/15 4:22 PM
 
 ------=_.description-216f885c-d591-38ce-8ea2-e4f8cb4d6ffa
 Content-Type: text/plain
@@ -274,7 +274,7 @@ proc "assert-problem-dialog" {
 // bool true if valid, false otherwise
 // ----------------------------------------------------------------------------
 proc "is-guarantees-valid" {
-    check-agree-result "Contract Guarantees"
+    is-agree-result-valid "Contract Guarantees"
 }
 
 
@@ -292,7 +292,7 @@ proc "is-guarantees-valid" {
 // bool true if valid, false otherwise
 // ----------------------------------------------------------------------------
 proc "is-composition-consistent" {
-	check-agree-result "Component composition consistent"
+	is-agree-result-valid "Component composition consistent"
 }
 
 
@@ -310,7 +310,7 @@ proc "is-composition-consistent" {
 // bool true if valid, false otherwise
 // ----------------------------------------------------------------------------
 proc "is-component-consistent" {
-	check-agree-result "This component consistent"	
+	is-agree-result-valid "This component consistent"	
 }
 
 
@@ -318,8 +318,8 @@ proc "is-component-consistent" {
 // Checks an AGREE Result
 //
 // Desription:
-// Given a string argument denoting a tree-item name in the AGREE Results view,
-// will check that the Result reported is valid. 
+// Given a string argument denoting a tree-item (Property column) name in the 
+// AGREE Results view, will check that the Result reported is valid. 
 //
 // Assumptions:
 // - AGREE has been started
@@ -327,17 +327,17 @@ proc "is-component-consistent" {
 // Return:
 // bool true if valid, false otherwise
 // ----------------------------------------------------------------------------
-proc "check-agree-result" [val theName] {
+proc "is-agree-result-valid" [val theProperty] {
 	wait-for-agree
 	try -command {
 		// For AGREE Results stemming from running AGREE Single Layer
-		and [get-view "AGREE Results" | get-tree | get-item $theName | get-property "columns[1]" -raw | contains "Valid"]
-	        [get-view "AGREE Results" | get-tree | get-item $theName | get-property "columns[1]" -raw | contains "Invalid" | not]
+		and [get-view "AGREE Results" | get-tree | get-item $theProperty | get-property "columns[1]" -raw | contains "Valid"]
+	        [get-view "AGREE Results" | get-tree | get-item $theProperty | get-property "columns[1]" -raw | contains "Invalid" | not]
 	} -catch {
 		// For AGREE Results stemming from running AGREE All Layers
 		let [val theItem [concat [get-view "AGREE Results" | get-tree | get-item ".*" | get-text] "/" [$theName]]] {
-			and [get-view "AGREE Results" | get-tree | get-item $theItem | get-property "columns[1]" -raw | contains "Valid"]
-				[get-view "AGREE Results" | get-tree | get-item $theItem | get-property "columns[1]" -raw | contains "Invalid" | not]
+			and [get-view "AGREE Results" | get-tree | get-item $theProperty | get-property "columns[1]" -raw | contains "Valid"]
+				[get-view "AGREE Results" | get-tree | get-item $theProperty | get-property "columns[1]" -raw | contains "Invalid" | not]
 		}
 	}
 }
