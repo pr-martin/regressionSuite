@@ -6,7 +6,7 @@ Element-Type: context
 Element-Version: 2.0
 Id: _2UF_4DbkEeWPP_kFBF0hLg
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 8/19/15 8:45 AM
+Save-Time: 8/19/15 9:05 AM
 
 ------=_.description-216f885c-d591-38ce-8ea2-e4f8cb4d6ffa
 Content-Type: text/plain
@@ -242,27 +242,65 @@ proc "check-problem-dialog" {
 // Guarantees reports valid. Will wait for AGREE to finish before checking.
 // 
 // Assumptions:
-// - Only works for AGREE Single Layer execution
 // - AGREE has been started
 //
 // Return:
-// bool if valid, false otherwise
+// bool true if valid, false otherwise
 // ----------------------------------------------------------------------------
 proc "is-guarantees-valid" {
     check-agree-result "Contract Guarantees"
 }
 
 
+// ----------------------------------------------------------------------------
+// Checks the AGREE Composition Consistency
+//
+// Desription:
+// Checks the AGREE Results view and determines if the Component Composition
+// Consistency reports valid. Will wait for AGREE to finish before checking.
+// 
+// Assumptions:
+// - AGREE has been started
+//
+// Return:
+// bool true if valid, false otherwise
+// ----------------------------------------------------------------------------
 proc "is-composition-consistent" {
 	check-agree-result "Component composition consistent"
 }
 
 
+// ----------------------------------------------------------------------------
+// Checks that the AGREE Component is Consistent
+//
+// Desription:
+// Checks the AGREE Results view and determines if the Component is
+// Consistent. Will wait for AGREE to finish before checking.
+// 
+// Assumptions:
+// - AGREE has been started
+//
+// Return:
+// bool true if valid, false otherwise
+// ----------------------------------------------------------------------------
 proc "is-component-consistent" {
 	check-agree-result "This component consistent"	
 }
 
 
+// ----------------------------------------------------------------------------
+// Checks an AGREE Result
+//
+// Desription:
+// Given a string argument denoting a tree-item name in the AGREE Results view,
+// will check that the Result reported is valid. 
+//
+// Assumptions:
+// - AGREE has been started
+//
+// Return:
+// bool true if valid, false otherwise
+// ----------------------------------------------------------------------------
 proc "check-agree-result" [val theName] {
 	wait-for-agree
 	try -command {
@@ -275,67 +313,5 @@ proc "check-agree-result" [val theName] {
 		}
 	}
 }
-
-
-// ----------------------------------------------------------------------------
-// Asserts that the AGREE Contract Guarantees are valid.
-//
-// Desription:
-// Checks the AGREE Results view and determines if the top-level Contract
-// Guarantees reports valid. Will wait for AGREE to finish before checking.
-//
-// This will work for AGREE Single Layer and All Layers executions.
-// 
-// Assumptions:
-// - AGREE has been started
-// ----------------------------------------------------------------------------
-//proc "verify-contract-guarantees" [val condition[bool true]] {
-//    wait-for-agree
-//	log [format "Verify Contract Guarantees %s" $condition]
-//    get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
-//        if [$item | get-text | contains "Contract Guarantees"] {
-//            if $condition {
-//                and [$item | get-property "columns[1]" -raw | contains "Valid"]
-//                    [$item | get-property "columns[1]" -raw | contains "Invalid" | not]
-//                    | verify-true
-//            } -else {
-//                and [$item | get-property "columns[1]" -raw | contains "Valid"]
-//                    [$item | get-property "columns[1]" -raw | contains "Invalid" | not]
-//                    | verify-false
-//            }
-//        }
-//    }
-//}
-
-
-// ----------------------------------------------------------------------------
-// Asserts that the AGREE Contract Consistency is valid.
-//
-// Desription:
-// Checks the AGREE Results view and determines if the top-level Contract
-// Consistency reports valid. Will wait for AGREE to finish before checking.
-//
-// This will work for AGREE Single Layer and All Layers executions.
-// 
-// Assumptions:
-// - AGREE has been started
-// ----------------------------------------------------------------------------
-//proc "verify-contract-consistency" [val condition[bool true]] {
-//    wait-for-agree
-//    get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
-//        if[or [$item | get-text | contains "This component consistent"]
-//        	  [$item | get-text | contains "Component composition consistent"]] {
-//            if $condition {
-//                and [$item | get-property "columns[1]" -raw | contains "Valid"]
-//                    [$item | get-property "columns[1]" -raw | contains "Invalid" | not]
-//                    | verify-true
-//            } -else {
-//                and [$item | get-property "columns[1]" -raw | contains "Valid"]
-//                    [$item | get-property "columns[1]" -raw | contains "Invalid" | not]
-//                    | verify-false
-//            }
-//        }
-//    }
-//}
 
 ------=_.ecl.context-718f04b4-ed39-33e3-af62-0995e4561998--
