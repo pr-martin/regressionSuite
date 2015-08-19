@@ -6,7 +6,7 @@ Element-Type: context
 Element-Version: 2.0
 Id: _2UF_4DbkEeWPP_kFBF0hLg
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 8/18/15 11:56 AM
+Save-Time: 8/18/15 5:19 PM
 
 ------=_.description-216f885c-d591-38ce-8ea2-e4f8cb4d6ffa
 Content-Type: text/plain
@@ -142,7 +142,7 @@ proc "is-agree-working" {
 proc "wait-for-agree" {
     loop {
         if [is-agree-working | eq true] {
-            wait 500 
+            wait 100 
             recur
         } -else {}
     }
@@ -172,10 +172,8 @@ proc "wait-for-agree" {
 // ----------------------------------------------------------------------------
 proc "run-agree-single-layer" [val item] {
     exec-with-options {
-        $item | select-item | get-menu "AGREE/Verify Single Layer" | click
-        try -command {			
-            get-window "Problem Occurred" | get-button OK | click | verify-false
-        } -catch {}
+	    $item | select-item | get-menu "AGREE/Verify Single Layer" | click    
+        check-problem-dialog
     } -allowStatusDialog
 }
 
@@ -204,11 +202,33 @@ proc "run-agree-single-layer" [val item] {
 proc "run-agree-all-layers" [val item] {
     exec-with-options {
         $item | select-item | get-menu "AGREE/Verify All Layers" | click
-        try -command {
-            get-window "Problem Occurred" | get-button OK | click | verify-false
-            bool false | verify-true // cheap way to stop further execution
-        } -catch {}
+        check-problem-dialog
     } -allowStatusDialog
+}
+
+
+// ----------------------------------------------------------------------------
+// Handles the "Problem Occurred" status dialog pop-up
+// 
+// Description:
+// If an operation causes the "Problem Occurred" dialog to present, this 
+// procedure will click the OK button to clear the dialog and then fail
+// an assertion to stop the execution.
+//
+// Assumptions:
+// - The calling procedure allows status dialogs:
+//      exec-with-options {
+//         ...some commands...
+//         check-problem-dialog
+//      } -allowStatusDialog
+//
+// ----------------------------------------------------------------------------
+proc "check-problem-dialog" {
+	try -command {
+		get-window "Problem Occurred" | get-button OK | click
+		log "Problem Occurred Dialog encountered."
+		bool false
+	} -catch { bool true } | assert-true
 }
 
 

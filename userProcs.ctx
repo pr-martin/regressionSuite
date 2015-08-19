@@ -6,7 +6,7 @@ Element-Type: context
 Element-Version: 2.0
 Id: _L6g0ADotEeWfbOeCsfgo5Q
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 8/5/15 2:00 PM
+Save-Time: 8/18/15 2:28 PM
 
 ------=_.description-216f885c-d591-38ce-8ea2-e4f8cb4d6ffa
 Content-Type: text/plain
@@ -50,7 +50,7 @@ proc "select-aadl-file" [val filename] {
 // Selects the System Implementation from the Outline View
 //
 // Description:
-// Selects a specific itme from the Outline View, typically a
+// Selects a specific item from the Outline View, typically a
 // System Implementation. Used prior to making any AGREE related
 // procedure calls.
 //
@@ -65,6 +65,28 @@ proc "select-sys-impl" [val implName] {
     get-view Outline | get-tree | get-item $implName | select-item 
 }
 
+
+// ----------------------------------------------------------------------------
+// Gets and returns the System Implementation from the Outline View
+//
+// Description:
+// Gets and returns a named item from the Outline View, typically a
+// System Implementation. Used prior to making any AGREE related
+// procedure calls.
+//
+// Assumptions:
+// - The OSATE Workspace is configured for AADL
+//   see workbenchContext.ctx
+//
+// Arguments:
+// str implName - The System Implementation name to select
+//
+// Return:
+// item
+// ----------------------------------------------------------------------------
+proc "get-sys-impl" [val implName] {
+	get-view Outline | get-tree | get-item $implName
+}
 
 // ----------------------------------------------------------------------------
 // Runs AGREE Single Layer and asserts guarantees and consistency are valid
