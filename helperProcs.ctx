@@ -6,7 +6,7 @@ Element-Type: context
 Element-Version: 2.0
 Id: _2UF_4DbkEeWPP_kFBF0hLg
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 8/18/15 6:16 PM
+Save-Time: 8/19/15 8:45 AM
 
 ------=_.description-216f885c-d591-38ce-8ea2-e4f8cb4d6ffa
 Content-Type: text/plain
@@ -248,35 +248,32 @@ proc "check-problem-dialog" {
 // Return:
 // bool if valid, false otherwise
 // ----------------------------------------------------------------------------
-proc "is-contract-guarantees-valid" {
-    wait-for-agree
-    log "Check if Contract Guarantees are Valid"
-    and [get-view "AGREE Results" | get-tree | get-item "Contract Guarantees" | get-property "columns[1]" -raw | contains "Valid"]
-        [get-view "AGREE Results" | get-tree | get-item "Contract Guarantees" | get-property "columns[1]" -raw | contains "Invalid" | not]
+proc "is-guarantees-valid" {
+    check-agree-result "Contract Guarantees"
 }
 
 
-// ----------------------------------------------------------------------------
-// Checks that the AGREE Contract Consistency is valid.
-//
-// Desription:
-// Checks the AGREE Results view and determines if the top-level Contract
-// Consistency reports valid. Will wait for AGREE to finish before checking.
-// 
-// Assumptions:
-// - Only works for AGREE Single Layer execution
-// - AGREE has been started
-//
-// Return:
-// bool if valid, false otherwise
-// ----------------------------------------------------------------------------
-proc "is-contract-consistency-valid" {
-    wait-for-agree
-    log "Check if Contract Consistency is Valid"
-    and [get-view "AGREE Results" | get-tree | get-item "This component consistent" | get-property "columns[1]" -raw | contains "Valid"]
-        [get-view "AGREE Results" | get-tree | get-item "This component consistent" | get-property "columns[1]" -raw | contains "Invalid" | not]
-        [get-view "AGREE Results" | get-tree | get-item "Component composition consistent" | get-property "columns[1]" -raw | contains "Valid"]
-        [get-view "AGREE Results" | get-tree | get-item "Component composition consistent" | get-property "columns[1]" -raw | contains "Invalid" | not]
+proc "is-composition-consistent" {
+	check-agree-result "Component composition consistent"
+}
+
+
+proc "is-component-consistent" {
+	check-agree-result "This component consistent"	
+}
+
+
+proc "check-agree-result" [val theName] {
+	wait-for-agree
+	try -command {
+		and [get-view "AGREE Results" | get-tree | get-item $theName | get-property "columns[1]" -raw | contains "Valid"]
+	        [get-view "AGREE Results" | get-tree | get-item $theName | get-property "columns[1]" -raw | contains "Invalid" | not]
+	} -catch {
+		let [val theItem [concat [get-view "AGREE Results" | get-tree | get-item ".*" | get-text] "/" [$theName]]] {
+			and [get-view "AGREE Results" | get-tree | get-item $theItem | get-property "columns[1]" -raw | contains "Valid"]
+				[get-view "AGREE Results" | get-tree | get-item $theItem | get-property "columns[1]" -raw | contains "Invalid" | not]
+		}
+	}
 }
 
 
@@ -292,23 +289,23 @@ proc "is-contract-consistency-valid" {
 // Assumptions:
 // - AGREE has been started
 // ----------------------------------------------------------------------------
-proc "verify-contract-guarantees" [val condition[bool true]] {
-    wait-for-agree
-	log [format "Verify Contract Guarantees %s" $condition]
-    get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
-        if [$item | get-text | contains "Contract Guarantees"] {
-            if $condition {
-                and [$item | get-property "columns[1]" -raw | contains "Valid"]
-                    [$item | get-property "columns[1]" -raw | contains "Invalid" | not]
-                    | verify-true
-            } -else {
-                and [$item | get-property "columns[1]" -raw | contains "Valid"]
-                    [$item | get-property "columns[1]" -raw | contains "Invalid" | not]
-                    | verify-false
-            }
-        }
-    }
-}
+//proc "verify-contract-guarantees" [val condition[bool true]] {
+//    wait-for-agree
+//	log [format "Verify Contract Guarantees %s" $condition]
+//    get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
+//        if [$item | get-text | contains "Contract Guarantees"] {
+//            if $condition {
+//                and [$item | get-property "columns[1]" -raw | contains "Valid"]
+//                    [$item | get-property "columns[1]" -raw | contains "Invalid" | not]
+//                    | verify-true
+//            } -else {
+//                and [$item | get-property "columns[1]" -raw | contains "Valid"]
+//                    [$item | get-property "columns[1]" -raw | contains "Invalid" | not]
+//                    | verify-false
+//            }
+//        }
+//    }
+//}
 
 
 // ----------------------------------------------------------------------------
@@ -323,22 +320,22 @@ proc "verify-contract-guarantees" [val condition[bool true]] {
 // Assumptions:
 // - AGREE has been started
 // ----------------------------------------------------------------------------
-proc "verify-contract-consistency" [val condition[bool true]] {
-    wait-for-agree
-    get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
-        if[or [$item | get-text | contains "This component consistent"]
-        	  [$item | get-text | contains "Component composition consistent"]] {
-            if $condition {
-                and [$item | get-property "columns[1]" -raw | contains "Valid"]
-                    [$item | get-property "columns[1]" -raw | contains "Invalid" | not]
-                    | verify-true
-            } -else {
-                and [$item | get-property "columns[1]" -raw | contains "Valid"]
-                    [$item | get-property "columns[1]" -raw | contains "Invalid" | not]
-                    | verify-false
-            }
-        }
-    }
-}
+//proc "verify-contract-consistency" [val condition[bool true]] {
+//    wait-for-agree
+//    get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
+//        if[or [$item | get-text | contains "This component consistent"]
+//        	  [$item | get-text | contains "Component composition consistent"]] {
+//            if $condition {
+//                and [$item | get-property "columns[1]" -raw | contains "Valid"]
+//                    [$item | get-property "columns[1]" -raw | contains "Invalid" | not]
+//                    | verify-true
+//            } -else {
+//                and [$item | get-property "columns[1]" -raw | contains "Valid"]
+//                    [$item | get-property "columns[1]" -raw | contains "Invalid" | not]
+//                    | verify-false
+//            }
+//        }
+//    }
+//}
 
 ------=_.ecl.context-718f04b4-ed39-33e3-af62-0995e4561998--
