@@ -6,7 +6,7 @@ Element-Type: context
 Element-Version: 2.0
 Id: _L6g0ADotEeWfbOeCsfgo5Q
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 8/18/15 2:28 PM
+Save-Time: 8/18/15 5:52 PM
 
 ------=_.description-216f885c-d591-38ce-8ea2-e4f8cb4d6ffa
 Content-Type: text/plain
@@ -43,6 +43,7 @@ Entry-Name: .ecl.context
 // ----------------------------------------------------------------------------
 proc "select-aadl-file" [val filename] {
     get-view "AADL Navigator" | get-tree | select $filename | double-click
+    log [format "Select File: %s" $filename]
 }
 
 
