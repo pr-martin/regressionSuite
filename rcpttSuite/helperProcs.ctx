@@ -6,7 +6,7 @@ Element-Type: context
 Element-Version: 2.0
 Id: _2UF_4DbkEeWPP_kFBF0hLg
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 8/19/15 9:05 AM
+Save-Time: 8/19/15 1:36 PM
 
 ------=_.description-216f885c-d591-38ce-8ea2-e4f8cb4d6ffa
 Content-Type: text/plain
@@ -174,7 +174,7 @@ proc "run-agree-single-layer" [val item] {
     exec-with-options {
     	log [format "AGREE Verify Single Layer: %s" [$item | get-text]]
 	    $item | select-item | get-menu "AGREE/Verify Single Layer" | click    
-        check-problem-dialog
+        assert-problem-dialog
     } -allowStatusDialog
 }
 
@@ -204,8 +204,39 @@ proc "run-agree-all-layers" [val item] {
     exec-with-options {
     	log [format "AGREE Verify All Layers: %s" [$item | get-text]]
         $item | select-item | get-menu "AGREE/Verify All Layers" | click
-        check-problem-dialog
+        assert-problem-dialog
     } -allowStatusDialog
+}
+
+
+// ----------------------------------------------------------------------------
+// Checks if the "Problem Occurred" status dialog pop-up is present
+// 
+// Description:
+// If an operation causes the "Problem Occurred" dialog to present, this 
+// procedure will click the OK button to clear the dialog.
+//
+// This procedure does not perform any assertion or verification to stop the
+// execution of the current test case.
+//
+// Assumptions:
+// - The calling procedure allows status dialogs:
+//      exec-with-options {
+//         ...some commands...
+//         check-problem-dialog
+//      } -allowStatusDialog
+//
+// Return:
+// bool true if no dialog present (happy path)
+// bool false if the Problem Dialog was presented and closed
+//
+// ----------------------------------------------------------------------------
+proc "check-problem-dialog" {
+	try -command {
+		get-window "Problem Occurred" | get-button OK | click
+		log "Problem Occurred Dialog encountered."
+		bool false
+	} -catch { bool true }
 }
 
 
@@ -221,18 +252,13 @@ proc "run-agree-all-layers" [val item] {
 // - The calling procedure allows status dialogs:
 //      exec-with-options {
 //         ...some commands...
-//         check-problem-dialog
+//         assert-problem-dialog
 //      } -allowStatusDialog
 //
 // ----------------------------------------------------------------------------
-proc "check-problem-dialog" {
-	try -command {
-		get-window "Problem Occurred" | get-button OK | click
-		log "Problem Occurred Dialog encountered."
-		bool false
-	} -catch { bool true } | assert-true
+proc "assert-problem-dialog" {
+	check-problem-dialog | assert-true	
 }
-
 
 // ----------------------------------------------------------------------------
 // Checks that the AGREE Contract Guarantees are valid.
@@ -304,9 +330,11 @@ proc "is-component-consistent" {
 proc "check-agree-result" [val theName] {
 	wait-for-agree
 	try -command {
+		// For AGREE Results stemming from running AGREE Single Layer
 		and [get-view "AGREE Results" | get-tree | get-item $theName | get-property "columns[1]" -raw | contains "Valid"]
 	        [get-view "AGREE Results" | get-tree | get-item $theName | get-property "columns[1]" -raw | contains "Invalid" | not]
 	} -catch {
+		// For AGREE Results stemming from running AGREE All Layers
 		let [val theItem [concat [get-view "AGREE Results" | get-tree | get-item ".*" | get-text] "/" [$theName]]] {
 			and [get-view "AGREE Results" | get-tree | get-item $theItem | get-property "columns[1]" -raw | contains "Valid"]
 				[get-view "AGREE Results" | get-tree | get-item $theItem | get-property "columns[1]" -raw | contains "Invalid" | not]

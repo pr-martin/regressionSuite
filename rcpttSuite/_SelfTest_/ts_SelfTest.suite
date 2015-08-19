@@ -1,0 +1,25 @@
+--- RCPTT testcase ---
+Format-Version: 1.0
+Element-Name: ts_SelfTest
+Element-Type: testsuite
+Element-Version: 2.0
+Id: _UmwHkEazEeWNSOmIUfjd6A
+Runtime-Version: 2.0.0.201506120617
+Save-Time: 8/19/15 1:50 PM
+
+------=_.description-216f885c-d591-38ce-8ea2-e4f8cb4d6ffa
+Content-Type: text/plain
+Entry-Name: .description
+
+This test suite executes a series of test cases intended to verify the operation of the Regression Test routines.
+------=_.description-216f885c-d591-38ce-8ea2-e4f8cb4d6ffa--
+------=_testcase-items-62c497da-4241-31f4-811a-6b453a3ecff8
+Content-Type: text/testcase
+Entry-Name: testcase-items
+
+_j7o50EamEeWL5qhxK4HHlQ	// kind: 'test' name: 'tc_ConsistInvalid' path: 'tc_ConsistInvalid.test'
+_LNarkEaxEeWNSOmIUfjd6A	// kind: 'test' name: 'tc_DialogTest' path: 'tc_DialogTest.test'
+_KPFKIEaoEeWL5qhxK4HHlQ	// kind: 'test' name: 'tc_GuaranteeInvalid' path: 'tc_GuaranteeInvalid.test'
+_SpXgwEamEeWL5qhxK4HHlQ	// kind: 'test' name: 'tc_Valid' path: 'tc_Valid.test'
+
+------=_testcase-items-62c497da-4241-31f4-811a-6b453a3ecff8--

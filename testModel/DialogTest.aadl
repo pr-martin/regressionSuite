@@ -1,0 +1,18 @@
+package DialogTest
+
+public
+  with Base_Types;
+
+system sys
+  features
+  	
+  	Output : out data port Base_Types::Boolean;
+
+end sys;
+
+
+system implementation sys.impl
+
+end sys.impl;
+	
+end DialogTest;
