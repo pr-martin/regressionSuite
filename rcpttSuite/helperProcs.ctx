@@ -170,16 +170,16 @@ proc "wait-for-agree" {
 // ----------------------------------------------------------------------------
 proc "run-agree-single-layer" [val item] {
     exec-with-options {
-    	log [format "AGREE Verify Single Layer: %s" [$item | get-text]]
-	    $item | select-item | get-menu "AGREE/Verify Single Layer" | click    
+        log [format "AGREE Verify Single Layer: %s" [$item | get-text]]
+        $item | select-item | get-menu "AGREE/Verify Single Layer" | click    
     } -allowStatusDialog
     
     let [val result [check-problem-dialog] ] {
-    	if $result {
-    		bool true
-    	} -else {
-    		bool false
-    	}
+        if $result {
+            bool true
+        } -else {
+            bool false
+        }
     }
 }
 
@@ -205,16 +205,16 @@ proc "run-agree-single-layer" [val item] {
 // ----------------------------------------------------------------------------
 proc "run-agree-all-layers" [val item] {
     exec-with-options {
-    	log [format "AGREE Verify All Layers: %s" [$item | get-text]]
+        log [format "AGREE Verify All Layers: %s" [$item | get-text]]
         $item | select-item | get-menu "AGREE/Verify All Layers" | click
     } -allowStatusDialog
     
     let [val result [check-problem-dialog] ] {
-    	if $result {
-    		bool true
-    	} -else {
-    		bool false
-    	}
+        if $result {
+            bool true
+        } -else {
+            bool false
+        }
     }
 }
 
@@ -250,18 +250,18 @@ proc "run-agree-all-layers" [val item] {
 //
 // ----------------------------------------------------------------------------
 proc "check-problem-dialog" {
-	try -command {
-		get-window "Problem Occurred" | get-button "Details >>" | click
-	    let[val theStr [get-window "Problem Occurred" | get-editbox | get-text] ] {
-			get-window "Problem Occurred" | get-button OK | click
-	    	if[ $theStr | contains "There is not an AGREE annex in the" ] {
-	    		bool false
-	    	} -else {
-	    		log "Error Dialog, stop test case execution"
-	    		bool false | assert-true
-	    	}
-	    }						
-	} -catch { bool true }
+    try -command {
+        get-window "Problem Occurred" | get-button "Details >>" | click
+        let[val theStr [get-window "Problem Occurred" | get-editbox | get-text] ] {
+            get-window "Problem Occurred" | get-button OK | click
+            if[ $theStr | contains "There is not an AGREE annex in the" ] {
+                bool false
+            } -else {
+                log "Error Dialog, stop test case execution"
+                bool false | assert-true
+            }
+        }                        
+    } -catch { bool true }
 }
 
 
@@ -297,7 +297,7 @@ proc "is-guarantees-valid" {
 // bool true if valid, false otherwise
 // ----------------------------------------------------------------------------
 proc "is-composition-consistent" {
-	is-agree-result-valid "Component composition consistent"
+    is-agree-result-valid "Component composition consistent"
 }
 
 
@@ -315,7 +315,7 @@ proc "is-composition-consistent" {
 // bool true if valid, false otherwise
 // ----------------------------------------------------------------------------
 proc "is-component-consistent" {
-	is-agree-result-valid "This component consistent"	
+    is-agree-result-valid "This component consistent"    
 }
 
 
@@ -333,18 +333,18 @@ proc "is-component-consistent" {
 // bool true if valid, false otherwise
 // ----------------------------------------------------------------------------
 proc "is-agree-result-valid" [val theProperty] {
-	wait-for-agree
-	try -command {
-		// For AGREE Results stemming from running AGREE Single Layer
-		and [get-view "AGREE Results" | get-tree | get-item $theProperty | get-property "columns[1]" -raw | contains "Valid"]
-	        [get-view "AGREE Results" | get-tree | get-item $theProperty | get-property "columns[1]" -raw | contains "Invalid" | not]
-	} -catch {
-		// For AGREE Results stemming from running AGREE All Layers
-		let [val newProperty [concat [get-view "AGREE Results" | get-tree | get-item ".*" | get-text] "/" [$theProperty]]] {
-			and [get-view "AGREE Results" | get-tree | get-item $newProperty | get-property "columns[1]" -raw | contains "Valid"]
-				[get-view "AGREE Results" | get-tree | get-item $newProperty | get-property "columns[1]" -raw | contains "Invalid" | not]
-		}
-	}
+    wait-for-agree
+    try -command {
+        // For AGREE Results stemming from running AGREE Single Layer
+        and [get-view "AGREE Results" | get-tree | get-item $theProperty | get-property "columns[1]" -raw | contains "Valid"]
+            [get-view "AGREE Results" | get-tree | get-item $theProperty | get-property "columns[1]" -raw | contains "Invalid" | not]
+    } -catch {
+        // For AGREE Results stemming from running AGREE All Layers
+        let [val newProperty [concat [get-view "AGREE Results" | get-tree | get-item ".*" | get-text] "/" [$theProperty]]] {
+            and [get-view "AGREE Results" | get-tree | get-item $newProperty | get-property "columns[1]" -raw | contains "Valid"]
+                [get-view "AGREE Results" | get-tree | get-item $newProperty | get-property "columns[1]" -raw | contains "Invalid" | not]
+        }
+    }
 }
 
 
@@ -368,17 +368,17 @@ proc "is-agree-result-valid" [val theProperty] {
 //      false otherwise
 // ----------------------------------------------------------------------------
 proc "check-agree-result" [val theProperty][val theResult] {
-	wait-for-agree
-	
-	try -command {
-		// For AGREE Results stemming from running AGREE Single Layer
-		get-view "AGREE Results" | get-tree | get-item $theProperty | get-property "columns[1]" -raw | contains $theResult
-			    
-	} -catch {
-		// For AGREE Results stemming from running AGREE All Layers
-		let [val newProperty [concat [get-view "AGREE Results" | get-tree | get-item ".*" | get-text] "/" [$theProperty]]] {
-			get-view "AGREE Results" | get-tree | get-item $newProperty | get-property "columns[1]" -raw | contains $theResult			
-		}
-	}
+    wait-for-agree
+    
+    try -command {
+        // For AGREE Results stemming from running AGREE Single Layer
+        get-view "AGREE Results" | get-tree | get-item $theProperty | get-property "columns[1]" -raw | contains $theResult
+                
+    } -catch {
+        // For AGREE Results stemming from running AGREE All Layers
+        let [val newProperty [concat [get-view "AGREE Results" | get-tree | get-item ".*" | get-text] "/" [$theProperty]]] {
+            get-view "AGREE Results" | get-tree | get-item $newProperty | get-property "columns[1]" -raw | contains $theResult            
+        }
+    }
 }
 ------=_.ecl.context-718f04b4-ed39-33e3-af62-0995e4561998--
