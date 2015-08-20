@@ -6,7 +6,7 @@ Element-Type: context
 Element-Version: 2.0
 Id: _2UF_4DbkEeWPP_kFBF0hLg
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 8/19/15 4:22 PM
+Save-Time: 8/19/15 5:18 PM
 
 ------=_.description-216f885c-d591-38ce-8ea2-e4f8cb4d6ffa
 Content-Type: text/plain
@@ -315,7 +315,7 @@ proc "is-component-consistent" {
 
 
 // ----------------------------------------------------------------------------
-// Checks an AGREE Result
+// Checks that an AGREE Result is Valid
 //
 // Desription:
 // Given a string argument denoting a tree-item (Property column) name in the 
@@ -335,11 +335,45 @@ proc "is-agree-result-valid" [val theProperty] {
 	        [get-view "AGREE Results" | get-tree | get-item $theProperty | get-property "columns[1]" -raw | contains "Invalid" | not]
 	} -catch {
 		// For AGREE Results stemming from running AGREE All Layers
-		let [val theItem [concat [get-view "AGREE Results" | get-tree | get-item ".*" | get-text] "/" [$theName]]] {
-			and [get-view "AGREE Results" | get-tree | get-item $theProperty | get-property "columns[1]" -raw | contains "Valid"]
-				[get-view "AGREE Results" | get-tree | get-item $theProperty | get-property "columns[1]" -raw | contains "Invalid" | not]
+		let [val newProperty [concat [get-view "AGREE Results" | get-tree | get-item ".*" | get-text] "/" [$theProperty]]] {
+			and [get-view "AGREE Results" | get-tree | get-item $newProperty | get-property "columns[1]" -raw | contains "Valid"]
+				[get-view "AGREE Results" | get-tree | get-item $newProperty | get-property "columns[1]" -raw | contains "Invalid" | not]
 		}
 	}
 }
 
+
+// ----------------------------------------------------------------------------
+// Checks that an AGREE Result Property for a given Result
+//
+// Desription:
+// Given a string argument denoting a tree-item (Property column) name in the 
+// AGREE Results view, will check that the Result column matches the string
+// argument for the result. 
+//
+// Assumptions:
+// - AGREE has been started
+//
+// Arguments:
+// string theProperty - Property column name in the AGREE Results View
+// string theResult - Result column string to search for
+//
+// Return:
+// bool true if theResult string is contained in the Result column, 
+//      false otherwise
+// ----------------------------------------------------------------------------
+proc "check-agree-result" [val theProperty][val theResult] {
+	wait-for-agree
+	
+	try -command {
+		// For AGREE Results stemming from running AGREE Single Layer
+		get-view "AGREE Results" | get-tree | get-item $theProperty | get-property "columns[1]" -raw | contains $theResult
+			    
+	} -catch {
+		// For AGREE Results stemming from running AGREE All Layers
+		let [val newProperty [concat [get-view "AGREE Results" | get-tree | get-item ".*" | get-text] "/" [$theProperty]]] {
+			get-view "AGREE Results" | get-tree | get-item $newProperty | get-property "columns[1]" -raw | contains $theResult			
+		}
+	}
+}
 ------=_.ecl.context-718f04b4-ed39-33e3-af62-0995e4561998--
