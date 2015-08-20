@@ -6,7 +6,7 @@ Element-Type: context
 Element-Version: 2.0
 Id: _2UF_4DbkEeWPP_kFBF0hLg
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 8/19/15 5:18 PM
+Save-Time: 8/20/15 3:34 PM
 
 ------=_.description-216f885c-d591-38ce-8ea2-e4f8cb4d6ffa
 Content-Type: text/plain
@@ -161,21 +161,26 @@ proc "wait-for-agree" {
 // - The item is from the Outline View
 // - The item is a system implementation, otherwise will follow exception path
 //
-// Notes:
-// The try-catch does not work in ECL as expected. With the catch defined, the
-// try will only execute the first statement meaning that the verify-false 
-// will not stop the execution as intended. In typical usage another
-// downstream failure will stop the execution.
-//
 // Arguments:
 // item item - Typically Outline view item that is a system implementation
+//
+// Return:
+// True if AGREE ran. False if there is no AGREE annex in the system
+// implementation.
 // ----------------------------------------------------------------------------
 proc "run-agree-single-layer" [val item] {
     exec-with-options {
     	log [format "AGREE Verify Single Layer: %s" [$item | get-text]]
 	    $item | select-item | get-menu "AGREE/Verify Single Layer" | click    
-        assert-problem-dialog
     } -allowStatusDialog
+    
+    let [val result [check-problem-dialog] ] {
+    	if $result {
+    		bool true
+    	} -else {
+    		bool false
+    	}
+    }
 }
 
 
@@ -191,33 +196,42 @@ proc "run-agree-single-layer" [val item] {
 // - The item is from the Outline View
 // - The item is a system implementation, otherwise will follow exception path
 //
-// Notes:
-// The try-catch does not work in ECL as expected. With the catch defined, the
-// try will only execute the first statement meaning that the verify-false 
-// will not stop the execution as intended. In typical usage another
-// downstream failure will stop the execution.
-//
 // Arguments:
 // item item - Typically Outline view item that is a system implementation
+//
+// Return:
+// True if AGREE ran. False if there is no AGREE annex in the system
+// implementation.
 // ----------------------------------------------------------------------------
 proc "run-agree-all-layers" [val item] {
     exec-with-options {
     	log [format "AGREE Verify All Layers: %s" [$item | get-text]]
         $item | select-item | get-menu "AGREE/Verify All Layers" | click
-        assert-problem-dialog
     } -allowStatusDialog
+    
+    let [val result [check-problem-dialog] ] {
+    	if $result {
+    		bool true
+    	} -else {
+    		bool false
+    	}
+    }
 }
 
 
 // ----------------------------------------------------------------------------
-// Checks if the "Problem Occurred" status dialog pop-up is present
+// Handles the "Problem Occurred" status dialog pop-up
 // 
 // Description:
 // If an operation causes the "Problem Occurred" dialog to present, this 
-// procedure will click the OK button to clear the dialog.
+// procedure will click the OK button to clear the dialog. If the dialog
+// is reporting that an AGREE annex was not found will return false. If
+// the dialog is reporting any other type of error will use an assertion to
+// stop the test case execution.
 //
-// This procedure does not perform any assertion or verification to stop the
-// execution of the current test case.
+// Typical usage is following a command to run AGREE. If this returns false
+// the check of the AGREE results can be skipped (as there was no AGREE annex).
+//
 //
 // Assumptions:
 // - The calling procedure allows status dialogs:
@@ -228,37 +242,28 @@ proc "run-agree-all-layers" [val item] {
 //
 // Return:
 // bool true if no dialog present (happy path)
-// bool false if the Problem Dialog was presented and closed
+// bool false if the Problem Dialog is reporting no AGREE Annex
+//
+// Assertions:
+// Will assert-false to stop test execution if any error other than no AGREE
+// Annex is reported.
 //
 // ----------------------------------------------------------------------------
 proc "check-problem-dialog" {
 	try -command {
-		get-window "Problem Occurred" | get-button OK | click
-		log "Problem Occurred Dialog encountered."
-		bool false
+		get-window "Problem Occurred" | get-button "Details >>" | click
+	    let[val theStr [get-window "Problem Occurred" | get-editbox | get-text] ] {
+			get-window "Problem Occurred" | get-button OK | click
+	    	if[ $theStr | contains "There is not an AGREE annex in the" ] {
+	    		bool false
+	    	} -else {
+	    		log "Error Dialog, stop test case execution"
+	    		bool false | assert-true
+	    	}
+	    }						
 	} -catch { bool true }
 }
 
-
-// ----------------------------------------------------------------------------
-// Handles the "Problem Occurred" status dialog pop-up
-// 
-// Description:
-// If an operation causes the "Problem Occurred" dialog to present, this 
-// procedure will click the OK button to clear the dialog and then fail
-// an assertion to stop the execution.
-//
-// Assumptions:
-// - The calling procedure allows status dialogs:
-//      exec-with-options {
-//         ...some commands...
-//         assert-problem-dialog
-//      } -allowStatusDialog
-//
-// ----------------------------------------------------------------------------
-proc "assert-problem-dialog" {
-	check-problem-dialog | assert-true	
-}
 
 // ----------------------------------------------------------------------------
 // Checks that the AGREE Contract Guarantees are valid.
