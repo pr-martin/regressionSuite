@@ -6,7 +6,7 @@ Element-Type: context
 Element-Version: 2.0
 Id: _2UF_4DbkEeWPP_kFBF0hLg
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 8/20/15 3:34 PM
+Save-Time: 8/21/15 9:16 AM
 
 ------=_.description-216f885c-d591-38ce-8ea2-e4f8cb4d6ffa
 Content-Type: text/plain
@@ -338,11 +338,13 @@ proc "is-agree-result-valid" [val theProperty] {
         // For AGREE Results stemming from running AGREE Single Layer
         and [get-view "AGREE Results" | get-tree | get-item $theProperty | get-property "columns[1]" -raw | contains "Valid"]
             [get-view "AGREE Results" | get-tree | get-item $theProperty | get-property "columns[1]" -raw | contains "Invalid" | not]
+            [get-view "AGREE Results" | get-tree | get-item $theProperty | get-property "columns[1]" -raw | contains "Unknown" | not]
     } -catch {
         // For AGREE Results stemming from running AGREE All Layers
         let [val newProperty [concat [get-view "AGREE Results" | get-tree | get-item ".*" | get-text] "/" [$theProperty]]] {
             and [get-view "AGREE Results" | get-tree | get-item $newProperty | get-property "columns[1]" -raw | contains "Valid"]
                 [get-view "AGREE Results" | get-tree | get-item $newProperty | get-property "columns[1]" -raw | contains "Invalid" | not]
+                [get-view "AGREE Results" | get-tree | get-item $newProperty | get-property "columns[1]" -raw | contains "Unknown" | not]
         }
     }
 }
