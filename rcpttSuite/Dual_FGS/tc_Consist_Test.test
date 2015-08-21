@@ -1,12 +1,12 @@
 --- RCPTT testcase ---
 Format-Version: 1.0
-Element-Name: tc_ADS
+Element-Name: tc_Consist_Test
 Element-Type: testcase
 Element-Version: 3.0
 External-Reference: 
-Id: _ejB_gDr3EeWXouf3h8VfIg
+Id: _5nDE8EgoEeWL5_WyA7JMgQ
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 8/21/15 9:19 AM
+Save-Time: 8/21/15 10:22 AM
 Testcase-Type: ecl
 
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
@@ -14,19 +14,24 @@ Content-Type: text/ecl
 Entry-Name: .content
 
 // ----------------------------------------------------------------------------
-// Regression Test for ADS package
+// Regression Test for the Consist Test package
 //
 // 
 // Executes the AGREE verification for Single Layer and All Layers.
 //
-// Expect all to be Valid.
+// Expect Counterexamples for Guarantees and Consistencies.
 // ----------------------------------------------------------------------------
 
 test-setup
 
-select-aadl-file "Dual FGS/aadl/packages/ADS.aadl"
-run-verify-agree-single-layer
-run-verify-agree-all-layers
+select-aadl-file "Dual FGS/packages/Consist_Test.aadl"
+
+run-verify-guarantees-single-layer false
+run-verify-guarantees-all-layers false
+
+run-verify-consistency-single-layer false
+run-verify-consistency-all-layers false
+
 
 test-teardown
 
