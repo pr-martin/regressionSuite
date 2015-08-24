@@ -6,7 +6,7 @@ Element-Type: context
 Element-Version: 2.0
 Id: _L6g0ADotEeWfbOeCsfgo5Q
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 8/20/15 3:51 PM
+Save-Time: 8/24/15 3:20 PM
 
 ------=_.description-216f885c-d591-38ce-8ea2-e4f8cb4d6ffa
 Content-Type: text/plain
@@ -199,7 +199,8 @@ proc "run-verify-consistency-single-layer" [val condition[bool true]] {
 // Scans the Outline view for each system implementation then performs: 
 // right-click -> AGREE -> Verify All Layers
 // Asserts that Contract Guarantees are valid in AGREE Results view
-// Asserts that Contract Consistency is valid in AGREE Results view 
+// Asserts that Contract Consistency is valid in AGREE Results view
+// Asserts that all other AGREE Results are valid 
 //
 // Assumptions:
 // - The OSATE Workspace in configured for AADL
@@ -217,6 +218,10 @@ proc "run-verify-agree-all-layers" {
                 is-guarantees-valid | verify-true
                 is-composition-consistent | verify-true
                 is-component-consistent | verify-true
+                
+                // Final procedure will check if anything else besides the 
+                // guarantees and consistency is not valid.
+                verify-all-results
             }
         }
     }
@@ -294,5 +299,6 @@ proc "run-verify-consistency-all-layers" [val condition[bool true]] {
         }
     }
 }
+
 
 ------=_.ecl.context-718f04b4-ed39-33e3-af62-0995e4561998--
