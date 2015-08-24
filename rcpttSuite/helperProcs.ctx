@@ -6,7 +6,7 @@ Element-Type: context
 Element-Version: 2.0
 Id: _2UF_4DbkEeWPP_kFBF0hLg
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 8/21/15 9:16 AM
+Save-Time: 8/24/15 10:38 AM
 
 ------=_.description-216f885c-d591-38ce-8ea2-e4f8cb4d6ffa
 Content-Type: text/plain
@@ -77,55 +77,68 @@ proc "is-system-impl" [val tree_item] {
 // ----------------------------------------------------------------------------
 proc "is-agree-working" {
 
+    // This appears to work for all cases
     or
-    // Working
-    [get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
-        if [$item | get-text | contains "Contract Guarantees"] { 
-            $item | get-property "columns[1]" -raw | contains "Working" 
-        }
+    [get-view "AGREE Results" | get-tree | get-items | foreach [val item] {    
+        $item | get-property "columns[1]" -raw | contains "Working"         
     }]
-    [get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
-        if [$item | get-text | contains "This component consistent"] { 
-            $item | get-property "columns[1]" -raw | contains "Working" 
-        }
+    [get-view "AGREE Results" | get-tree | get-items | foreach [val item] {    
+        $item | get-property "columns[1]" -raw | contains "Waiting"         
     }]
-    [get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
-        if [$item | get-text | contains "Component composition consistent"] { 
-            $item | get-property "columns[1]" -raw | contains "Working" 
-        }
+    [get-view "AGREE Results" | get-tree | get-items | foreach [val item] {    
+        $item | get-property "columns[1]" -raw | equals ""         
     }]
-    // Waiting
-    [get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
-        if [$item | get-text | contains "Contract Guarantees"] { 
-            $item | get-property "columns[1]" -raw | contains "Waiting" 
-        }
-    }]
-    [get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
-        if [$item | get-text | contains "This component consistent"] { 
-            $item | get-property "columns[1]" -raw | contains "Waiting" 
-        }
-    }]
-    [get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
-        if [$item | get-text | contains "Component composition consistent"] { 
-            $item | get-property "columns[1]" -raw | contains "Waiting" 
-        }
-    }]
-    // Blank
-    [get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
-        if [$item | get-text | contains "Contract Guarantees"] { 
-            $item | get-property "columns[1]" -raw | equals "" 
-        }
-    }]
-    [get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
-        if [$item | get-text | contains "This component consistent"] { 
-            $item | get-property "columns[1]" -raw | equals "" 
-        }
-    }]
-    [get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
-        if [$item | get-text | contains "Component composition consistent"] { 
-            $item | get-property "columns[1]" -raw | equals "" 
-        }
-    }]
+    
+    //ORIGINAL DOESN'T WORK...SEE THE QFCS -> FCS.aadl
+    //or
+    //// Working
+    //[get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
+    //    if [$item | get-text | contains "Contract Guarantees"] { 
+    //        $item | get-property "columns[1]" -raw | contains "Working" 
+    //    }
+    //}]
+    //[get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
+    //    if [$item | get-text | contains "This component consistent"] { 
+    //        $item | get-property "columns[1]" -raw | contains "Working" 
+    //    }
+    //}]
+    //[get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
+    //    if [$item | get-text | contains "Component composition consistent"] { 
+    //        $item | get-property "columns[1]" -raw | contains "Working" 
+    //    }
+    //}]
+    //// Waiting
+    //[get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
+    //    if [$item | get-text | contains "Contract Guarantees"] { 
+    //        $item | get-property "columns[1]" -raw | contains "Waiting" 
+    //    }
+    //}]
+    //[get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
+    //    if [$item | get-text | contains "This component consistent"] { 
+    //        $item | get-property "columns[1]" -raw | contains "Waiting" 
+    //    }
+    //}]
+    //[get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
+    //    if [$item | get-text | contains "Component composition consistent"] { 
+    //        $item | get-property "columns[1]" -raw | contains "Waiting" 
+    //    }
+    //}]
+    //// Blank
+    //[get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
+    //    if [$item | get-text | contains "Contract Guarantees"] { 
+    //        $item | get-property "columns[1]" -raw | equals "" 
+    //    }
+    //}]
+    //[get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
+    //    if [$item | get-text | contains "This component consistent"] { 
+    //        $item | get-property "columns[1]" -raw | equals "" 
+    //    }
+    //}]
+    //[get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
+    //    if [$item | get-text | contains "Component composition consistent"] { 
+    //        $item | get-property "columns[1]" -raw | equals "" 
+    //    }
+    //}]
 }
 
 
@@ -167,19 +180,35 @@ proc "wait-for-agree" {
 // Return:
 // True if AGREE ran. False if there is no AGREE annex in the system
 // implementation.
+//
+// Assertions:
+// Will assert to halt test case execution if the check-problem-dialog 
+// reports that an error in the status dialog.
 // ----------------------------------------------------------------------------
 proc "run-agree-single-layer" [val item] {
     exec-with-options {
         log [format "AGREE Verify Single Layer: %s" [$item | get-text]]
         $item | select-item | get-menu "AGREE/Verify Single Layer" | click    
     } -allowStatusDialog
-    
-    let [val result [check-problem-dialog] ] {
-        if $result {
+        
+    let [val result [check-problem-dialog] ] {        
+
+        // If the result value is 1.0, then we believe AGREE is running
+        if [$result | equals [float "1.0"]] {
             bool true
         } -else {
-            bool false
-        }
+            // If the result is 0.0 then we got a status dialog for no
+            // AGREE annex found. AGREE did not run.
+            if [$result | equals [float "0.0"]] {
+                log "No AGREE annex found."
+                bool false
+            } -else {
+                // Otherwise we got some other error reported in the status
+                // dialog. Stop the execution.
+                log "Error starting AGREE. Stop Test Case Execution"
+                bool false | assert-true
+            }
+        }        
     }
 }
 
@@ -202,6 +231,10 @@ proc "run-agree-single-layer" [val item] {
 // Return:
 // True if AGREE ran. False if there is no AGREE annex in the system
 // implementation.
+//
+// Assertions:
+// Will assert to halt test case execution if the check-problem-dialog 
+// reports that an error in the status dialog.
 // ----------------------------------------------------------------------------
 proc "run-agree-all-layers" [val item] {
     exec-with-options {
@@ -209,12 +242,24 @@ proc "run-agree-all-layers" [val item] {
         $item | select-item | get-menu "AGREE/Verify All Layers" | click
     } -allowStatusDialog
     
-    let [val result [check-problem-dialog] ] {
-        if $result {
+    let [val result [check-problem-dialog] ] {        
+
+        // If the result value is 1.0, then we believe AGREE is running
+        if [$result | equals [float "1.0"]] {
             bool true
         } -else {
-            bool false
-        }
+            // If the result is 0.0 then we got a status dialog for no
+            // AGREE annex found. AGREE did not run.
+            if [$result | equals [float "0.0"]] {
+                log "No AGREE annex found."
+                bool false
+            } -else {
+                // Otherwise we got some other error reported in the status
+                // dialog. Stop the execution.
+                log "Error starting AGREE. Stop Test Case Execution"
+                bool false | assert-true
+            }
+        }        
     }
 }
 
@@ -241,27 +286,29 @@ proc "run-agree-all-layers" [val item] {
 //      } -allowStatusDialog
 //
 // Return:
-// bool true if no dialog present (happy path)
-// bool false if the Problem Dialog is reporting no AGREE Annex
-//
-// Assertions:
-// Will assert-false to stop test execution if any error other than no AGREE
-// Annex is reported.
+// float 1.0  if no dialog present (happy path)
+// float 0.0  if the Problem Dialog is reporting no AGREE Annex
+// float -1.0 if the Problem Dialog reports some other error
 //
 // ----------------------------------------------------------------------------
 proc "check-problem-dialog" {
     try -command {
         get-window "Problem Occurred" | get-button "Details >>" | click
         let[val theStr [get-window "Problem Occurred" | get-editbox | get-text] ] {
-            get-window "Problem Occurred" | get-button OK | click
+            get-window "Problem Occurred" | get-button OK | click            
             if[ $theStr | contains "There is not an AGREE annex in the" ] {
-                bool false
+                // Return 0 if the status dialog reports no AGREE annex
+                float "0"
             } -else {
-                log "Error Dialog, stop test case execution"
-                bool false | assert-true
+                // Return -1 if some other error is reported in the
+                // status dialog.
+                float "-1"
             }
         }                        
-    } -catch { bool true }
+    } -catch {
+        // Return 1 for success, no status dialog present.
+        float "1" 
+    }
 }
 
 
@@ -351,7 +398,7 @@ proc "is-agree-result-valid" [val theProperty] {
 
 
 // ----------------------------------------------------------------------------
-// Checks that an AGREE Result Property for a given Result
+// Checks a specific AGREE Result Property for a given Result
 //
 // Desription:
 // Given a string argument denoting a tree-item (Property column) name in the 
@@ -381,6 +428,38 @@ proc "check-agree-result" [val theProperty][val theResult] {
         let [val newProperty [concat [get-view "AGREE Results" | get-tree | get-item ".*" | get-text] "/" [$theProperty]]] {
             get-view "AGREE Results" | get-tree | get-item $newProperty | get-property "columns[1]" -raw | contains $theResult            
         }
+    }
+}
+
+
+// ----------------------------------------------------------------------------
+// Reads through all the AGREE Result Properties, checks for Validity
+//
+// Desription:
+// After AGREE finishes execution will read through the tree of AGREE Results
+// looking for each result column to contain "Valid", but also to NOT contain
+// either "Invalid" or "Unknown". 
+//
+// Assumptions:
+// - AGREE has been started
+//
+// Arguments:
+// None
+//
+// Return:
+// None
+//
+// Assertions:
+// Asserts true if all are Valid, asserts false otherwise
+// ----------------------------------------------------------------------------
+proc "verify-all-results" {
+    wait-for-agree
+
+    get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
+        
+        and [$item | get-property "columns[1]" -raw | contains "Valid"]
+            [$item | get-property "columns[1]" -raw | contains "Invalid" | not ]
+            [$item | get-property "columns[1]" -raw | contains "Unknown" | not ] | verify-true
     }
 }
 ------=_.ecl.context-718f04b4-ed39-33e3-af62-0995e4561998--
