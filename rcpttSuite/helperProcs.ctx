@@ -6,7 +6,7 @@ Element-Type: context
 Element-Version: 2.0
 Id: _2UF_4DbkEeWPP_kFBF0hLg
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 8/24/15 10:38 AM
+Save-Time: 8/31/15 2:32 PM
 
 ------=_.description-216f885c-d591-38ce-8ea2-e4f8cb4d6ffa
 Content-Type: text/plain
@@ -88,57 +88,6 @@ proc "is-agree-working" {
     [get-view "AGREE Results" | get-tree | get-items | foreach [val item] {    
         $item | get-property "columns[1]" -raw | equals ""         
     }]
-    
-    //ORIGINAL DOESN'T WORK...SEE THE QFCS -> FCS.aadl
-    //or
-    //// Working
-    //[get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
-    //    if [$item | get-text | contains "Contract Guarantees"] { 
-    //        $item | get-property "columns[1]" -raw | contains "Working" 
-    //    }
-    //}]
-    //[get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
-    //    if [$item | get-text | contains "This component consistent"] { 
-    //        $item | get-property "columns[1]" -raw | contains "Working" 
-    //    }
-    //}]
-    //[get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
-    //    if [$item | get-text | contains "Component composition consistent"] { 
-    //        $item | get-property "columns[1]" -raw | contains "Working" 
-    //    }
-    //}]
-    //// Waiting
-    //[get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
-    //    if [$item | get-text | contains "Contract Guarantees"] { 
-    //        $item | get-property "columns[1]" -raw | contains "Waiting" 
-    //    }
-    //}]
-    //[get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
-    //    if [$item | get-text | contains "This component consistent"] { 
-    //        $item | get-property "columns[1]" -raw | contains "Waiting" 
-    //    }
-    //}]
-    //[get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
-    //    if [$item | get-text | contains "Component composition consistent"] { 
-    //        $item | get-property "columns[1]" -raw | contains "Waiting" 
-    //    }
-    //}]
-    //// Blank
-    //[get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
-    //    if [$item | get-text | contains "Contract Guarantees"] { 
-    //        $item | get-property "columns[1]" -raw | equals "" 
-    //    }
-    //}]
-    //[get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
-    //    if [$item | get-text | contains "This component consistent"] { 
-    //        $item | get-property "columns[1]" -raw | equals "" 
-    //    }
-    //}]
-    //[get-view "AGREE Results" | get-tree | get-items | foreach [val item] {
-    //    if [$item | get-text | contains "Component composition consistent"] { 
-    //        $item | get-property "columns[1]" -raw | equals "" 
-    //    }
-    //}]
 }
 
 
@@ -242,7 +191,7 @@ proc "run-agree-all-layers" [val item] {
         $item | select-item | get-menu "AGREE/Verify All Layers" | click
     } -allowStatusDialog
     
-    let [val result [check-problem-dialog] ] {        
+    let [val result [check-problem-dialog] ] {
 
         // If the result value is 1.0, then we believe AGREE is running
         if [$result | equals [float "1.0"]] {
@@ -259,7 +208,7 @@ proc "run-agree-all-layers" [val item] {
                 log "Error starting AGREE. Stop Test Case Execution"
                 bool false | assert-true
             }
-        }        
+        }
     }
 }
 
@@ -304,7 +253,7 @@ proc "check-problem-dialog" {
                 // status dialog.
                 float "-1"
             }
-        }                        
+        }
     } -catch {
         // Return 1 for success, no status dialog present.
         float "1" 

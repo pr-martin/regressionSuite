@@ -6,7 +6,7 @@ Element-Type: context
 Element-Version: 2.0
 Id: _oxVyADoEEeWfbOeCsfgo5Q
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 8/5/15 2:00 PM
+Save-Time: 8/31/15 2:31 PM
 
 ------=_.description-216f885c-d591-38ce-8ea2-e4f8cb4d6ffa
 Content-Type: text/plain
@@ -36,7 +36,9 @@ Entry-Name: .ecl.context
 // Must be explicitly called at the beginning of a Test Case.
 // ----------------------------------------------------------------------------
 proc "test-setup" {
+    disable-pref-recorder
     undecorate-git
+    close-views
 }
 
 
@@ -95,5 +97,46 @@ proc "decorate-git" {
         get-button OK | click
     }
 }
+
+
+// ----------------------------------------------------------------------------
+// Closes unnecessary views in Osate 2 
+//
+// Description:
+// Attempts to close unnecessary views in Osate 2 that may interfere with 
+// regression test execution. The RCPTT workbenchContext will open views
+// that are called for but this context will not close views. This 
+// procedure is needed at the beginning of test execution to insure those
+// views are closed. 
+//
+// Usage:
+// Typically called near the beginning of a test case or test suite execution.
+//
+// ----------------------------------------------------------------------------
+proc "close-views" {
+    try -command { get-view Problems | close } -catch {}
+    try -command { get-view Properties | close } -catch {}
+    try -command { get-view Console | close } -catch {}
+    try -command { get-view "Error Log" | close } -catch {}
+    try -command { get-view "AADL Property Values" | close } -catch {}
+    try -command { get-view "REAL Results" | close } -catch {}
+}
+
+
+// ----------------------------------------------------------------------------
+// Disables the Ooomph Preference Recorder
+//
+// Description:
+// 
+// ----------------------------------------------------------------------------
+proc "disable-pref-recorder" {
+    get-preferences-menu | click
+    with [get-window Preferences] {
+        get-tree | select "Oomph/Preference Recorder"
+        get-button Enabled | uncheck
+        get-button OK | click
+    }
+}
+
 
 ------=_.ecl.context-718f04b4-ed39-33e3-af62-0995e4561998--
