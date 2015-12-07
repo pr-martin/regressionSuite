@@ -6,7 +6,7 @@ Element-Type: context
 Element-Version: 2.0
 Id: _oxVyADoEEeWfbOeCsfgo5Q
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 8/31/15 2:31 PM
+Save-Time: 10/16/15 12:06 PM
 
 ------=_.description-216f885c-d591-38ce-8ea2-e4f8cb4d6ffa
 Content-Type: text/plain
@@ -127,14 +127,19 @@ proc "close-views" {
 // Disables the Ooomph Preference Recorder
 //
 // Description:
+// Tries to disable the Preference Recorder that is introduced in the Mars
+// distribution of Eclipse. Surrounded with try-catch in case the tested
+// application does not have the offending Preference Recorder.
 // 
 // ----------------------------------------------------------------------------
 proc "disable-pref-recorder" {
     get-preferences-menu | click
     with [get-window Preferences] {
-        get-tree | select "Oomph/Preference Recorder"
-        get-button Enabled | uncheck
-        get-button OK | click
+        try -command {
+        	get-tree | select "Oomph/Preference Recorder"
+        	get-button Enabled | uncheck
+        	get-button OK | click
+        } -catch { get-button Cancel | click }
     }
 }
 
