@@ -12,17 +12,16 @@ See https://wiki.sei.cmu.edu/aadl/index.php/Getting_Osate_2_sources
 4) Check out this regression suite to the Eclipse Modeling Tools Workspace that you have previously set up for running Osate 2. This is the workspace that will have folders like "osate2-ba", "osate2-core", ... "smaccm". 
 
 5) Import the regressionSuite project in to your Eclipse Modeling Tools. The test suite project is in \regressionSuite\rcpttSuite.
-You'll probably also notice that there is a \regressionSuite\testModel folder and project. Don't worry about this right now, this will be imported in to the Osate 2 workspace later.
 
 6) To run the regression suite you will need to create a new Run Configuration in a similar fashion to the configuration you've already made to launch and run Osate 2.
 
 Open the Run Configurations dialog, find the "Eclipse Application under Test" and right-click to create a new launch. In the new configuration click "Select..." button and choose "Osate 2 product". Click Apply, Run and off we go to Osate 2...
 
-7) Now lets switch over to the Osate 2 you now have running. We will import the SelfTest project from the regressionSuite checkout. I used Import->General->Existing Projects into Workspace->SelfTest (though you can also import from git repos). The SelfTest project imported into Osate is a collection of 4 aadl packages that try to exercise our test functions to make sure all is working as expected.
+7) In the freshly launched Osate2 application we'll want to import the Toy_Example project from the smaccm checkout. This is likely located in the Eclipse Modeling Tools workspace (not in the Osate2 workspace). Click File->Import->Existing Projects and navigate to the Eclipse Modeling Tools workspace, you'll then find the model projects under "\smaccm\models\Toy_AGREE_Models". 
 
-8) Now back to the Eclipse Modeling application and switch to the RCPTT Perspective. Expand the regressionSuite project in the Test Explorer view. Further, expand the _SelfTest_ folder and observe the names of the objects within. Items starting with "tc_" are individual RCPTT test cases. The item starting with "ts_" is the Test Suite. To run an individual test case, double-click the desired item and in the newly opened view click the "Replay" button in the upper right. You will see activtiy begin in the Osate application as the test case runs. Upon completion you can see the results of the test case in the "Execution View".
+8) In the Eclipse Modeling application and switch to the RCPTT Perspective. Expand the regressionSuite project in the Test Explorer view. Further, expand the Toy_Example folder and observe the names of the objects within. Items starting with "tc_" are individual RCPTT test cases. The item starting with "ts_" is the Test Suite. To run an individual test case, double-click the desired item and in the newly opened view click the "Replay" button in the upper right. You will see activtiy begin in the Osate application as the test case runs. Upon completion you can see the results of the test case in the "Execution View".
 
-The Test Suite will run all the test cases listed within. Double click the "ts_SelfTest" to open the suite to see all the test cases. Clicking the "Execute" button in the upper right will run the test suite and again the results will be display in the "Execution View".
+The Test Suite will run all the test cases listed within. Double click the "ts_Toy_Example" to open the suite to see all the test cases. Clicking the "Execute" button in the upper right will run the test suite and again the results will be display in the "Execution View".
 
 9) After this you may import other model projects from the smaccm repo in to Osate, and if there is a corresponding Test Suite in your Eclipse Modeling Test Explorer you may run these. 
 
