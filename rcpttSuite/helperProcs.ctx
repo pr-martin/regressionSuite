@@ -6,7 +6,7 @@ Element-Type: context
 Element-Version: 2.0
 Id: _2UF_4DbkEeWPP_kFBF0hLg
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 8/31/15 2:32 PM
+Save-Time: 12/17/15 11:58 AM
 
 ------=_.description-216f885c-d591-38ce-8ea2-e4f8cb4d6ffa
 Content-Type: text/plain
@@ -312,6 +312,11 @@ proc "is-composition-consistent" {
 // ----------------------------------------------------------------------------
 proc "is-component-consistent" {
     is-agree-result-valid "This component consistent"    
+}
+
+
+proc "is-item-valid" [val item] {
+    is-agree-result-valid $item
 }
 
 
