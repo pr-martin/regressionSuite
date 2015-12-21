@@ -6,7 +6,7 @@ Element-Version: 3.0
 External-Reference: 
 Id: _8Qr8MDrsEeW5lZkwAQHAzQ
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 12/17/15 4:16 PM
+Save-Time: 12/21/15 11:58 AM
 Testcase-Type: ecl
 
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
@@ -26,15 +26,28 @@ test-setup
 select-aadl-file "Dual FGS/aadl/packages/FCS.aadl"
 
 run-agree-single-layer [select-sys-impl "Package Public FCS_public/System Impl Flight_Control_System.Flight_Control_System_Impl"]
-is-guarantees-valid | verify-false
+
+// Special case for the guarantees. Must look at each sub-item as one will
+// produce a counter-example.
+is-item-valid "pitch is valid" | verify-true
+is-item-valid "pitch step is valid" | verify-false
+
+// Check remaining items at top-level
 is-component-consistent | verify-true
 is-composition-consistent | verify-true
 is-item-valid "AP consistent" | verify-true
 is-item-valid "FGS_L consistent" | verify-true
 is-item-valid "FGS_R consistent" | verify-true
 
+
 run-agree-all-layers [select-sys-impl "Package Public FCS_public/System Impl Flight_Control_System.Flight_Control_System_Impl"]
-is-guarantees-valid | verify-false
+
+// Special case for the guarantees. Must look at each sub-item as one will
+// produce a counter-example.
+is-item-valid "Contract Guarantees/pitch is valid" | verify-true
+is-item-valid "Contract Guarantees/pitch step is valid" | verify-false
+
+// Check remaining items at top-level
 is-component-consistent | verify-true
 is-composition-consistent | verify-true
 is-item-valid "AP consistent" | verify-true
