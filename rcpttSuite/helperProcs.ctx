@@ -6,7 +6,7 @@ Element-Type: context
 Element-Version: 2.0
 Id: _2UF_4DbkEeWPP_kFBF0hLg
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 12/17/15 11:58 AM
+Save-Time: 12/22/15 4:42 PM
 
 ------=_.description-216f885c-d591-38ce-8ea2-e4f8cb4d6ffa
 Content-Type: text/plain
@@ -375,12 +375,14 @@ proc "check-agree-result" [val theProperty][val theResult] {
     
     try -command {
         // For AGREE Results stemming from running AGREE Single Layer
-        get-view "AGREE Results" | get-tree | get-item $theProperty | get-property "columns[1]" -raw | contains $theResult
+        //get-view "AGREE Results" | get-tree | get-item $theProperty | get-property "columns[1]" -raw | contains $theResult
+        get-view "AGREE Results" | get-tree | get-item $theProperty | get-property "columns[1]" -raw | equals $theResult
                 
     } -catch {
         // For AGREE Results stemming from running AGREE All Layers
         let [val newProperty [concat [get-view "AGREE Results" | get-tree | get-item ".*" | get-text] "/" [$theProperty]]] {
-            get-view "AGREE Results" | get-tree | get-item $newProperty | get-property "columns[1]" -raw | contains $theResult            
+            //get-view "AGREE Results" | get-tree | get-item $newProperty | get-property "columns[1]" -raw | contains $theResult
+            get-view "AGREE Results" | get-tree | get-item $newProperty | get-property "columns[1]" -raw | equals $theResult
         }
     }
 }
