@@ -1,0 +1,88 @@
+--- RCPTT testcase ---
+Format-Version: 1.0
+Element-Name: tc_GPCA_SW_all
+Element-Type: testcase
+Element-Version: 3.0
+External-Reference: 
+Id: _bIStEDruEeW5lZkwAQHAzQ
+Runtime-Version: 2.0.0.201506120617
+Save-Time: 12/22/15 4:06 PM
+Testcase-Type: ecl
+
+------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
+Content-Type: text/ecl
+Entry-Name: .content
+
+// ----------------------------------------------------------------------------
+// Regression Test for GPCA_SW package
+//
+// 
+// Executes the AGREE verification for All Layers.
+//
+// ----------------------------------------------------------------------------
+
+test-setup
+
+select-aadl-file "GPCA_Controller/packages/GPCA_SW.aadl"
+run-agree-all-layers [select-sys-impl "Package Public GPCA_SW_public/System Impl GPCA_SW.Impl"]
+
+check-agree-result "Contract Guarantees" "2 Invalid, 18 Valid"
+is-item-valid "Contract Guarantees/PROPERTY 17 : empty_reservoir_implies_audio " | verify-false
+is-item-valid "Contract Guarantees/PROPERTY 18 : empty_reservoir_implies_visual_1 " | verify-false
+
+is-component-consistent | verify-true
+is-composition-consistent | verify-true
+is-item-valid "TLM consistent" | verify-true
+is-item-valid "SYS_STAT consistent" | verify-true
+is-item-valid "ALARM consistent" | verify-true
+is-item-valid "CONFIG consistent" | verify-true
+is-item-valid "IM consistent" | verify-true
+is-item-valid "OUTPUT consistent" | verify-true
+
+is-item-valid "Verification for TLM/Contract Guarantees/system_start_implies_system_on" | verify-false
+is-item-valid "Verification for TLM/Contract Guarantees/not_system_start_implies_system_off" | verify-false
+is-item-valid "Verification for TLM/This component consistent" | verify-true
+is-item-valid "Verification for TLM/Component composition consistent" | verify-true
+
+is-item-valid "Verification for SYS_STAT/Contract Guarantees/empty_reservoir_condition " | verify-false
+is-item-valid "Verification for SYS_STAT/Contract Guarantees/mode_grt_1_implies_In_Therapy " | verify-false
+is-item-valid "Verification for SYS_STAT/Contract Guarantees/mode_not_grt_1_implies_not_In_Therapy " | verify-false
+is-item-valid "Verification for SYS_STAT/This component consistent" | verify-true
+is-item-valid "Verification for SYS_STAT/Component composition consistent" | verify-true
+
+is-item-valid "Verification for ALARM/Contract Guarantees/volume_infused" | verify-false
+is-item-valid "Verification for ALARM/Contract Guarantees/alarm_range " | verify-false // requires trailing space
+is-item-valid "Verification for ALARM/Contract Guarantees/empty_reservoir_implies_alarm_L4" | verify-false
+is-item-valid "Verification for ALARM/Contract Guarantees/low_reservoir_implies_alarm_L2" | verify-false
+is-item-valid "Verification for ALARM/Contract Guarantees/air_in_line_implies_grt_L3_alarm" | verify-false
+is-item-valid "Verification for ALARM/Contract Guarantees/occlusion_implies_grt_L3_alarm" | verify-false
+is-item-valid "Verification for ALARM/Contract Guarantees/door_open_implies_grt_L3_alarm" | verify-false
+is-item-valid "Verification for ALARM/Contract Guarantees/alarm_gte_L3_causes_audio_output_EQ_audio_level" | verify-false
+is-item-valid "Verification for ALARM/Contract Guarantees/no_audio_if_audio_disabled" | verify-false
+is-item-valid "Verification for ALARM/Contract Guarantees/other_level_4_alarms " | verify-false // requires trailing space
+is-item-valid "Verification for ALARM/Contract Guarantees/flow_rate_exceeds_flow_rate_Hi " | verify-false // requires trailing space
+is-item-valid "Verification for ALARM/Contract Guarantees/alarm_gt_3_no_audio_disable_implies_audio " | verify-false // requires trailing space
+is-item-valid "Verification for ALARM/Contract Guarantees/empty_reservoir_implies_visual_1 " | verify-false // requires trailing space
+is-item-valid "Verification for ALARM/This component consistent" | verify-true
+is-item-valid "Verification for ALARM/Component composition consistent" | verify-true
+
+is-item-valid "Verification for CONFIG/Contract Guarantees/flow_rate_kvo_gt_0" | verify-false
+is-item-valid "Verification for CONFIG/Contract Guarantees/config_range" | verify-false
+is-item-valid "Verification for CONFIG/Contract Guarantees/flow_rate_kvo_gt_0" | verify-false
+is-item-valid "Verification for CONFIG/Contract Guarantees/Infusion_Total_Duration" | verify-false
+is-item-valid "Verification for CONFIG/Contract Guarantees/config_gt_1_implies_values_configured" | verify-false
+is-item-valid "Verification for CONFIG/This component consistent" | verify-true
+is-item-valid "Verification for CONFIG/Component composition consistent" | verify-true
+
+check-agree-result "Verification for IM/Contract Guarantees" "11 Invalid, 1 Valid" | verify-true
+is-item-valid "Verification for IM/Contract Guarantees/alarm_L2_implies_no_bolus" | verify-true
+is-item-valid "Verification for IM/This component consistent" | verify-true
+is-item-valid "Verification for IM/Component composition consistent" | verify-true
+
+check-agree-result "Verification for OUTPUT/Contract Guarantees" "31 Invalid" | verify-true
+is-item-valid "Verification for OUTPUT/This component consistent" | verify-true
+is-item-valid "Verification for OUTPUT/Component composition consistent" | verify-true
+
+test-teardown
+
+------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac--
