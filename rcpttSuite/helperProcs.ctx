@@ -6,7 +6,7 @@ Element-Type: context
 Element-Version: 2.0
 Id: _2UF_4DbkEeWPP_kFBF0hLg
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 1/5/16 4:52 PM
+Save-Time: 1/6/16 1:51 PM
 
 ------=_.description-216f885c-d591-38ce-8ea2-e4f8cb4d6ffa
 Content-Type: text/plain
@@ -319,6 +319,10 @@ proc "is-item-valid" [val item] {
     is-agree-result-valid $item
 }
 
+proc "is-item-unknown" [val item] {
+    is-agree-result-unknown $item
+}
+
 
 // ----------------------------------------------------------------------------
 // Checks that an AGREE Result is Valid
@@ -351,7 +355,7 @@ proc "is-agree-result-valid" [val theProperty] {
 }
 
 
-proc "is-item-unknown" [val theProperty] {
+proc "is-agree-result-unknown" [val theProperty] {
     wait-for-agree
     try -command {
         // For AGREE Results stemming from running AGREE Single Layer
