@@ -5,17 +5,18 @@ Element-Type: testsuite
 Element-Version: 2.0
 Id: _0X5V0Dr-EeWXouf3h8VfIg
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 1/6/16 1:27 PM
+Save-Time: 1/6/16 4:32 PM
 
 ------=_testcase-items-62c497da-4241-31f4-811a-6b453a3ecff8
 Content-Type: text/testcase
 Entry-Name: testcase-items
 
-_NG4m0Dr5EeWXouf3h8VfIg	//
-_aZwY0Dr-EeWXouf3h8VfIg	//
-_b0yMYDr-EeWXouf3h8VfIg	//
-_huWAwDr-EeWXouf3h8VfIg	//
-_jBgRwDr-EeWXouf3h8VfIg	//
-_sTC7oEhREeW__YM9LKkA0A	//
+_NG4m0Dr5EeWXouf3h8VfIg	// kind: 'suite' name: 'ts_Dual_FGS' path: 'Dual_FGS/ts_Dual_FGS.suite'
+_aZwY0Dr-EeWXouf3h8VfIg	// kind: 'suite' name: 'ts_GPCA_Controller' path: 'GPCA_Controller/ts_GPCA_Controller.suite'
+_b0yMYDr-EeWXouf3h8VfIg	// kind: 'suite' name: 'ts_Microwave' path: 'Microwave/ts_Microwave.suite'
+_huWAwDr-EeWXouf3h8VfIg	// kind: 'suite' name: 'ts_QuasiTest' path: 'QuasiTest/ts_QuasiTest.suite'
+_jBgRwDr-EeWXouf3h8VfIg	// kind: 'suite' name: 'ts_Toy_Example' path: 'Toy_Example/ts_Toy_Example.suite'
+_sTC7oEhREeW__YM9LKkA0A	// kind: 'suite' name: 'ts_SmaccmPhase2_V3' path: 'SmaccmPhase2_V3/ts_SmaccmPhase2_V3.suite'
+_-1h7gLTSEeWBT6XiNXpuRA	// kind: 'suite' name: 'ts_QFCS' path: 'QFCS_V2/ts_QFCS.suite'
 
 ------=_testcase-items-62c497da-4241-31f4-811a-6b453a3ecff8--

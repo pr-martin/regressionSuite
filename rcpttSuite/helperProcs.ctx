@@ -6,7 +6,7 @@ Element-Type: context
 Element-Version: 2.0
 Id: _2UF_4DbkEeWPP_kFBF0hLg
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 1/6/16 1:51 PM
+Save-Time: 1/6/16 4:35 PM
 
 ------=_.description-216f885c-d591-38ce-8ea2-e4f8cb4d6ffa
 Content-Type: text/plain
@@ -315,10 +315,39 @@ proc "is-component-consistent" {
 }
 
 
+// ----------------------------------------------------------------------------
+// Checks that the AGREE Component is "Valid"
+//
+// Desription:
+// Checks the AGREE Results view and determines if the result is "Valid"
+// Will wait for AGREE to finish before checking.
+// Will report a failure if "Invalid" or "Unknown" is found in the string.
+// 
+// Assumptions:
+// - AGREE has been started
+//
+// Return:
+// bool true if valid, false otherwise
+// ----------------------------------------------------------------------------
 proc "is-item-valid" [val item] {
     is-agree-result-valid $item
 }
 
+
+// ----------------------------------------------------------------------------
+// Checks that the AGREE Component is "Unknown"
+//
+// Desription:
+// Checks the AGREE Results view and determines if the result is "Unknown"
+// Will wait for AGREE to finish before checking.
+// Will report a failure if "Valid" or "Invalid" is found in the string.
+// 
+// Assumptions:
+// - AGREE has been started
+//
+// Return:
+// bool true if valid, false otherwise
+// ----------------------------------------------------------------------------
 proc "is-item-unknown" [val item] {
     is-agree-result-unknown $item
 }
@@ -329,7 +358,8 @@ proc "is-item-unknown" [val item] {
 //
 // Desription:
 // Given a string argument denoting a tree-item (Property column) name in the 
-// AGREE Results view, will check that the Result reported is valid. 
+// AGREE Results view, will check that the Result reported is valid. Will
+// report a failure if "Valid" or "Invalid" is found in the string.
 //
 // Assumptions:
 // - AGREE has been started
@@ -355,6 +385,20 @@ proc "is-agree-result-valid" [val theProperty] {
 }
 
 
+// ----------------------------------------------------------------------------
+// Checks that an AGREE Result is Unknown
+//
+// Desription:
+// Given a string argument denoting a tree-item (Property column) name in the 
+// AGREE Results view, will check that the Result reported is "Unknown". Will
+// report a failure if "Valid" or "Invalid" are found in the string.
+//
+// Assumptions:
+// - AGREE has been started
+//
+// Return:
+// bool true if valid, false otherwise
+// ----------------------------------------------------------------------------
 proc "is-agree-result-unknown" [val theProperty] {
     wait-for-agree
     try -command {
