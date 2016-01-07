@@ -6,7 +6,7 @@ Element-Version: 3.0
 External-Reference: 
 Id: _SSAYcEhNEeW__YM9LKkA0A
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 1/6/16 10:39 AM
+Save-Time: 1/7/16 3:20 PM
 Testcase-Type: ecl
 
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
@@ -29,7 +29,7 @@ select-aadl-file "QuasiTest/packages/QuasiTest.aadl"
 // Assertion will stop test at this call
 run-agree-single-layer [get-sys-impl "Package Public QuasiTest_public/System Impl Squadron.impl"] | verify-true
 
-is-item-valid "leader equivalence" | verify-false
+is-item-invalid "leader equivalence" | verify-true
 is-item-valid "form_right assume: not shifting both same" | verify-true
 is-item-valid "form_right assume: only shift if none pending" | verify-true
 is-item-valid "form_right assume: left shift time" | verify-true
@@ -45,11 +45,6 @@ is-item-valid "form_left consistent" | verify-true
 is-composition-consistent | verify-true
 is-component-consistent | verify-true
 
-
-//run-agree-all-layers [get-sys-impl "Package Public QuasiTest_public/System Impl Squadron.impl"] | verify-true
-//is-guarantees-valid | verify-true
-//is-composition-consistent | verify-true
-//is-component-consistent | verify-true
 
 test-teardown
 
