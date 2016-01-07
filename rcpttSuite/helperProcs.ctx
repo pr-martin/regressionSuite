@@ -6,7 +6,7 @@ Element-Type: context
 Element-Version: 2.0
 Id: _2UF_4DbkEeWPP_kFBF0hLg
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 1/6/16 4:35 PM
+Save-Time: 1/7/16 9:46 AM
 
 ------=_.description-216f885c-d591-38ce-8ea2-e4f8cb4d6ffa
 Content-Type: text/plain
@@ -319,7 +319,7 @@ proc "is-component-consistent" {
 // Checks that the AGREE Component is "Valid"
 //
 // Desription:
-// Checks the AGREE Results view and determines if the result is "Valid"
+// Checks the AGREE Results view and determines if the result is "Valid".
 // Will wait for AGREE to finish before checking.
 // Will report a failure if "Invalid" or "Unknown" is found in the string.
 // 
@@ -335,10 +335,29 @@ proc "is-item-valid" [val item] {
 
 
 // ----------------------------------------------------------------------------
+// Checks that the AGREE Component is "Invalid"
+//
+// Desription:
+// Checks the AGREE Results view and determines if the result is "Invalid".
+// Will wait for AGREE to finish before checking.
+// Will report a failure if "Valid" or "Unknown" is found in the string.
+// 
+// Assumptions:
+// - AGREE has been started
+//
+// Return:
+// bool true if valid, false otherwise
+// ----------------------------------------------------------------------------
+proc "is-item-invalid" [val item] {
+    is-agree-result-invalid $item
+}
+
+
+// ----------------------------------------------------------------------------
 // Checks that the AGREE Component is "Unknown"
 //
 // Desription:
-// Checks the AGREE Results view and determines if the result is "Unknown"
+// Checks the AGREE Results view and determines if the result is "Unknown".
 // Will wait for AGREE to finish before checking.
 // Will report a failure if "Valid" or "Invalid" is found in the string.
 // 
@@ -358,8 +377,8 @@ proc "is-item-unknown" [val item] {
 //
 // Desription:
 // Given a string argument denoting a tree-item (Property column) name in the 
-// AGREE Results view, will check that the Result reported is valid. Will
-// report a failure if "Valid" or "Invalid" is found in the string.
+// AGREE Results view, will check that the Result reported is "Valid". Will
+// report a failure if "Unknown" or "Invalid" is found in the string.
 //
 // Assumptions:
 // - AGREE has been started
@@ -379,6 +398,38 @@ proc "is-agree-result-valid" [val theProperty] {
         let [val newProperty [concat [get-view "AGREE Results" | get-tree | get-item ".*" | get-text] "/" [$theProperty]]] {
             and [get-view "AGREE Results" | get-tree | get-item $newProperty | get-property "columns[1]" -raw | contains "Valid"]
                 [get-view "AGREE Results" | get-tree | get-item $newProperty | get-property "columns[1]" -raw | contains "Invalid" | not]
+                [get-view "AGREE Results" | get-tree | get-item $newProperty | get-property "columns[1]" -raw | contains "Unknown" | not]
+        }
+    }
+}
+
+
+// ----------------------------------------------------------------------------
+// Checks that an AGREE Result is Invalid
+//
+// Desription:
+// Given a string argument denoting a tree-item (Property column) name in the 
+// AGREE Results view, will check that the Result reported is invalid. Will
+// report a failure if "Valid" or "Unknown" is found in the string.
+//
+// Assumptions:
+// - AGREE has been started
+//
+// Return:
+// bool true if valid, false otherwise
+// ----------------------------------------------------------------------------
+proc "is-agree-result-invalid" [val theProperty] {
+    wait-for-agree
+    try -command {
+        // For AGREE Results stemming from running AGREE Single Layer
+        and [get-view "AGREE Results" | get-tree | get-item $theProperty | get-property "columns[1]" -raw | contains "Valid" | not]
+            [get-view "AGREE Results" | get-tree | get-item $theProperty | get-property "columns[1]" -raw | contains "Invalid"]
+            [get-view "AGREE Results" | get-tree | get-item $theProperty | get-property "columns[1]" -raw | contains "Unknown" | not]
+    } -catch {
+        // For AGREE Results stemming from running AGREE All Layers
+        let [val newProperty [concat [get-view "AGREE Results" | get-tree | get-item ".*" | get-text] "/" [$theProperty]]] {
+            and [get-view "AGREE Results" | get-tree | get-item $newProperty | get-property "columns[1]" -raw | contains "Valid" | not]
+                [get-view "AGREE Results" | get-tree | get-item $newProperty | get-property "columns[1]" -raw | contains "Invalid"]
                 [get-view "AGREE Results" | get-tree | get-item $newProperty | get-property "columns[1]" -raw | contains "Unknown" | not]
         }
     }
