@@ -6,7 +6,7 @@ Element-Version: 3.0
 External-Reference: 
 Id: _KfY7wDrbEeW5lZkwAQHAzQ
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 1/7/16 3:32 PM
+Save-Time: 1/7/16 5:41 PM
 Testcase-Type: ecl
 
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
@@ -16,6 +16,11 @@ Entry-Name: .content
 // ----------------------------------------------------------------------------
 // Regression Test for Integer_Toy_Extended example
 // 
+// Checks:
+//   AGREE Single Layer
+//   AGREE All Layers
+//   Realizability
+//   Monolithically
 // ----------------------------------------------------------------------------
 
 test-setup
@@ -27,50 +32,87 @@ run-agree-single-layer [select-sys-impl "Package Public Integer_Toy_Extended_pub
 is-guarantees-valid | verify-true
 is-component-consistent | verify-true
 is-composition-consistent | verify-true
-is-item-valid "A_sub consistent" | verify-true
-is-item-valid "B_sub consistent" | verify-true
-is-item-valid "C_sub consistent" | verify-true
+is-result-valid "A_sub consistent" | verify-true
+is-result-valid "B_sub consistent" | verify-true
+is-result-valid "C_sub consistent" | verify-true
 
 
 run-agree-all-layers [select-sys-impl "Package Public Integer_Toy_Extended_public/System Impl top_level.Impl"] | verify-true
 is-guarantees-valid | verify-true
 is-component-consistent | verify-true
 is-composition-consistent | verify-true
-is-item-valid "A_sub consistent" | verify-true
-is-item-valid "B_sub consistent" | verify-true
-is-item-valid "C_sub consistent" | verify-true
+is-result-valid "A_sub consistent" | verify-true
+is-result-valid "B_sub consistent" | verify-true
+is-result-valid "C_sub consistent" | verify-true
 check-agree-result "Verification for top_level.Impl" "8 Valid" | verify-true
 
 
 run-agree-single-layer [select-sys-impl "Package Public Integer_Toy_Extended_public/System Impl above_top.Impl"] | verify-true
 is-component-consistent | verify-true
 is-composition-consistent | verify-true
-is-item-invalid "System output range" | verify-true
-is-item-invalid "A_sub assume: A input range" | verify-true
-is-item-valid "top_sub assume: System input range " | verify-true
+is-result-invalid "System output range" | verify-true
+is-result-invalid "A_sub assume: A input range" | verify-true
+is-result-valid "top_sub assume: System input range " | verify-true
 check-agree-result "Contract Guarantees" "2 Invalid, 1 Valid" | verify-true
 
 
 run-agree-all-layers [select-sys-impl "Package Public Integer_Toy_Extended_public/System Impl above_top.Impl"] | verify-true
 is-component-consistent | verify-true
 is-composition-consistent | verify-true
-is-item-valid "A_sub consistent" | verify-true
-is-item-valid "top_sub consistent" | verify-true
-is-item-invalid "Contract Guarantees/System output range" | verify-true
-is-item-invalid "Contract Guarantees/A_sub assume: A input range" | verify-true
-is-item-valid "Contract Guarantees/top_sub assume: System input range " | verify-true
+is-result-valid "A_sub consistent" | verify-true
+is-result-valid "top_sub consistent" | verify-true
+is-result-invalid "Contract Guarantees/System output range" | verify-true
+is-result-invalid "Contract Guarantees/A_sub assume: A input range" | verify-true
+is-result-valid "Contract Guarantees/top_sub assume: System input range " | verify-true
 check-agree-result "Contract Guarantees" "2 Invalid, 1 Valid" | verify-true
-is-item-valid "Verification for top_sub/Contract Guarantees/System output range" | verify-true
-is-item-valid "Verification for top_sub/Contract Guarantees/top_sub.A_sub assume: A input range" | verify-true
-is-item-valid "Verification for top_sub/Contract Guarantees/top_sub.B_sub assume: B input range" | verify-true
+is-result-valid "Verification for top_sub/Contract Guarantees/System output range" | verify-true
+is-result-valid "Verification for top_sub/Contract Guarantees/top_sub.A_sub assume: A input range" | verify-true
+is-result-valid "Verification for top_sub/Contract Guarantees/top_sub.B_sub assume: B input range" | verify-true
 check-agree-result "Verification for top_sub/Contract Guarantees" "3 Valid" | verify-true
-is-item-valid "Verification for top_sub/This component consistent" | verify-true
-is-item-valid "Verification for top_sub/Component composition consistent" | verify-true
-is-item-valid "Verification for top_sub/A_sub consistent" | verify-true
-is-item-valid "Verification for top_sub/B_sub consistent" | verify-true
-is-item-valid "Verification for top_sub/C_sub consistent" | verify-true
+is-result-valid "Verification for top_sub/This component consistent" | verify-true
+is-result-valid "Verification for top_sub/Component composition consistent" | verify-true
+is-result-valid "Verification for top_sub/A_sub consistent" | verify-true
+is-result-valid "Verification for top_sub/B_sub consistent" | verify-true
+is-result-valid "Verification for top_sub/C_sub consistent" | verify-true
 check-agree-result "Verification for top_sub" "8 Valid" | verify-true
 check-agree-result "Verification for above_top.Impl" "2 Invalid, 13 Valid" | verify-true
+
+// Check Realizability
+run-agree-realizability [select-sys-impl "Package Public Integer_Toy_Extended_public/System Impl top_level.Impl"] | verify-true
+is-realizability-valid | verify-true
+
+run-agree-realizability [select-sys-impl "Package Public Integer_Toy_Extended_public/System Impl above_top.Impl"] | verify-true
+is-realizability-valid | verify-true
+
+// Verify Monolitically
+run-agree-monolithically [select-sys-impl "Package Public Integer_Toy_Extended_public/System Impl top_level.Impl"] | verify-true
+
+is-result-valid "System output range" | verify-true
+is-result-valid "A_sub assume: A input range" | verify-true
+is-result-valid "B_sub assume: B input range" | verify-true
+check-agree-result "Contract Guarantees" "3 Valid" | verify-true
+
+is-component-consistent | verify-true
+is-composition-consistent | verify-true
+
+is-result-valid "A_sub consistent" | verify-true
+is-result-valid "B_sub consistent" | verify-true
+is-result-valid "C_sub consistent" | verify-true
+
+run-agree-monolithically [select-sys-impl "Package Public Integer_Toy_Extended_public/System Impl above_top.Impl"] | verify-true
+
+is-result-invalid "System output range" | verify-true
+is-result-invalid "A_sub assume: A input range" | verify-true
+is-result-valid "top_sub.A_sub assume: A input range" | verify-true
+is-result-valid "top_sub.B_sub assume: B input range" | verify-true
+is-result-valid "top_sub assume: System input range " | verify-true
+check-agree-result "Contract Guarantees" "2 Invalid, 3 Valid" | verify-true
+
+is-component-consistent | verify-true
+is-composition-consistent | verify-true
+
+is-result-valid "A_sub consistent" | verify-true
+is-result-valid "top_sub consistent" | verify-true
 
 
 test-teardown
