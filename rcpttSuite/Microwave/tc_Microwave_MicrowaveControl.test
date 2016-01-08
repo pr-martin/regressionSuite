@@ -1,12 +1,12 @@
 --- RCPTT testcase ---
 Format-Version: 1.0
-Element-Name: tc_Microwave
+Element-Name: tc_Microwave_MicrowaveControl
 Element-Type: testcase
 Element-Version: 3.0
 External-Reference: 
-Id: _0eNNkDbqEeWPP_kFBF0hLg
+Id: _CeSO8LZUEeWCd_MF12OcJA
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 1/7/16 2:29 PM
+Save-Time: 1/8/16 2:12 PM
 Testcase-Type: ecl
 
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
@@ -26,45 +26,42 @@ test-setup
 
 select-aadl-file "Microwave/Microwave_SEng5861.aadl"
 
-// CHECK SINGLE LAYER
-run-agree-single-layer [select-sys-impl "Package Public Microwave_SEng5861_public/System Impl Mode_Control.Impl"] | verify-true
+// Check Realizabilty
+run-agree-realizability [select-sys-impl "Package Public Microwave_SEng5861_public/System Impl Microwave_Control.Impl"] | verify-true
+is-realizability-valid | verify-true
+
+// Check Monolithic
+run-agree-monolithically [select-sys-impl "Package Public Microwave_SEng5861_public/System Impl Microwave_Control.Impl"] | verify-true
 verify-all-results
 
-run-agree-single-layer [select-sys-impl "Package Public Microwave_SEng5861_public/System Impl Display_Control.Impl"] | verify-true
-verify-all-results
 
+// Check Single Layer
 run-agree-single-layer [select-sys-impl "Package Public Microwave_SEng5861_public/System Impl Microwave_Control.Impl"] | verify-true
 check-agree-result "Contract Guarantees" "2 Invalid, 2 Valid" | verify-true
-is-item-valid "Contract Guarantees/heating_element_on implies door_closed_sensor" | verify-true
-is-item-invalid "Contract Guarantees/heating element on implies time to cook decreases" | verify-true
-is-item-invalid "Contract Guarantees/time to cook = 0 implies heating_element_off" | verify-true
-is-item-valid "Contract Guarantees/MC assume: seconds_to_cook is greater than or equal to zero" | verify-true
+is-result-valid "Contract Guarantees/heating_element_on implies door_closed_sensor" | verify-true
+is-result-invalid "Contract Guarantees/heating element on implies time to cook decreases" | verify-true
+is-result-invalid "Contract Guarantees/time to cook = 0 implies heating_element_off" | verify-true
+is-result-valid "Contract Guarantees/MC assume: seconds_to_cook is greater than or equal to zero" | verify-true
 is-component-consistent | verify-true
 is-composition-consistent | verify-true
-is-item-valid "MC consistent" | verify-true
-is-item-valid "DC consistent" | verify-true
-is-item-valid "OP consistent" | verify-true
+is-result-valid "MC consistent" | verify-true
+is-result-valid "DC consistent" | verify-true
+is-result-valid "OP consistent" | verify-true
 
 
-// RUN ALL LAYERS
-run-agree-all-layers [select-sys-impl "Package Public Microwave_SEng5861_public/System Impl Mode_Control.Impl"] | verify-true
-verify-all-results
-
-run-agree-all-layers [select-sys-impl "Package Public Microwave_SEng5861_public/System Impl Display_Control.Impl"] | verify-true
-verify-all-results
-
+// Run All Layers
 run-agree-all-layers [select-sys-impl "Package Public Microwave_SEng5861_public/System Impl Microwave_Control.Impl"] | verify-true
 check-agree-result "Verification for Microwave_Control.Impl" "2 Invalid, 29 Valid" | verify-true
 check-agree-result "Contract Guarantees" "2 Invalid, 2 Valid" | verify-true
-is-item-valid "Contract Guarantees/heating_element_on implies door_closed_sensor" | verify-true
-is-item-invalid "Contract Guarantees/heating element on implies time to cook decreases" | verify-true
-is-item-invalid "Contract Guarantees/time to cook = 0 implies heating_element_off" | verify-true
-is-item-valid "Contract Guarantees/MC assume: seconds_to_cook is greater than or equal to zero" | verify-true
+is-result-valid "Contract Guarantees/heating_element_on implies door_closed_sensor" | verify-true
+is-result-invalid "Contract Guarantees/heating element on implies time to cook decreases" | verify-true
+is-result-invalid "Contract Guarantees/time to cook = 0 implies heating_element_off" | verify-true
+is-result-valid "Contract Guarantees/MC assume: seconds_to_cook is greater than or equal to zero" | verify-true
 is-component-consistent | verify-true
 is-composition-consistent | verify-true
-is-item-valid "MC consistent" | verify-true
-is-item-valid "DC consistent" | verify-true
-is-item-valid "OP consistent" | verify-true
+is-result-valid "MC consistent" | verify-true
+is-result-valid "DC consistent" | verify-true
+is-result-valid "OP consistent" | verify-true
 
 check-agree-result "Verification for MC" "11 Valid" | verify-true
 check-agree-result "Verification for MC/Contract Guarantees" "9 Valid" | verify-true
