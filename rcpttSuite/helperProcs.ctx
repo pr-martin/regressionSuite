@@ -6,7 +6,7 @@ Element-Type: context
 Element-Version: 2.0
 Id: _2UF_4DbkEeWPP_kFBF0hLg
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 1/7/16 9:46 AM
+Save-Time: 1/7/16 4:39 PM
 
 ------=_.description-216f885c-d591-38ce-8ea2-e4f8cb4d6ffa
 Content-Type: text/plain
@@ -214,6 +214,108 @@ proc "run-agree-all-layers" [val item] {
 
 
 // ----------------------------------------------------------------------------
+// Given an Item will run AGREE Realizability Check
+// 
+// Description:
+// Given an Item (presumably from the Outline view) will run the Check 
+// Realizability. Does allow for a status dialog pop-up if titled
+// "Problem Occurred". 
+//
+// Assumptions:
+// - The item is from the Outline View
+// - The item is a system implementation, otherwise will follow exception path
+//
+// Arguments:
+// item item - Typically Outline view item that is a system implementation
+//
+// Return:
+// True if AGREE ran. False if there is no AGREE annex in the system
+// implementation.
+//
+// Assertions:
+// Will assert to halt test case execution if the check-problem-dialog 
+// reports that an error in the status dialog.
+// ----------------------------------------------------------------------------
+proc "run-agree-realizability" [val item] {
+    exec-with-options {
+        log [format "AGREE Check Realizability: %s" [$item | get-text]]
+        $item | select-item | get-menu "AGREE/Check Realizability" | click    
+    } -allowStatusDialog
+        
+    let [val result [check-problem-dialog] ] {        
+
+        // If the result value is 1.0, then we believe AGREE is running
+        if [$result | equals [float "1.0"]] {
+            bool true
+        } -else {
+            // If the result is 0.0 then we got a status dialog for no
+            // AGREE annex found. AGREE did not run.
+            if [$result | equals [float "0.0"]] {
+                log "No AGREE annex found."
+                bool false
+            } -else {
+                // Otherwise we got some other error reported in the status
+                // dialog. Stop the execution.
+                log "Error starting Check Realizability. Stop Test Case Execution"
+                bool false | assert-true
+            }
+        }        
+    }
+}
+
+
+// ----------------------------------------------------------------------------
+// Given an Item will run AGREE Verify Monolithically
+// 
+// Description:
+// Given an Item (presumably from the Outline view) will run the Verify 
+// Monolithically. Does allow for a status dialog pop-up if titled
+// "Problem Occurred". 
+//
+// Assumptions:
+// - The item is from the Outline View
+// - The item is a system implementation, otherwise will follow exception path
+//
+// Arguments:
+// item item - Typically Outline view item that is a system implementation
+//
+// Return:
+// True if AGREE ran. False if there is no AGREE annex in the system
+// implementation.
+//
+// Assertions:
+// Will assert to halt test case execution if the check-problem-dialog 
+// reports that an error in the status dialog.
+// ----------------------------------------------------------------------------
+proc "run-agree-monolithically" [val item] {
+    exec-with-options {
+        log [format "AGREE Verify Monolithically: %s" [$item | get-text]]
+        $item | select-item | get-menu "AGREE/Verify Monolithically" | click    
+    } -allowStatusDialog
+        
+    let [val result [check-problem-dialog] ] {        
+
+        // If the result value is 1.0, then we believe AGREE is running
+        if [$result | equals [float "1.0"]] {
+            bool true
+        } -else {
+            // If the result is 0.0 then we got a status dialog for no
+            // AGREE annex found. AGREE did not run.
+            if [$result | equals [float "0.0"]] {
+                log "No AGREE annex found."
+                bool false
+            } -else {
+                // Otherwise we got some other error reported in the status
+                // dialog. Stop the execution.
+                log "Error starting Verify Monolithically. Stop Test Case Execution"
+                bool false | assert-true
+            }
+        }        
+    }
+}
+
+
+// ----------------------------------------------------------------------------
 // Handles the "Problem Occurred" status dialog pop-up
 // 
 // Description:
@@ -275,7 +377,7 @@ proc "check-problem-dialog" {
 // bool true if valid, false otherwise
 // ----------------------------------------------------------------------------
 proc "is-guarantees-valid" {
-    is-agree-result-valid "Contract Guarantees"
+    is-result-valid "Contract Guarantees"
 }
 
 
@@ -293,7 +395,7 @@ proc "is-guarantees-valid" {
 // bool true if valid, false otherwise
 // ----------------------------------------------------------------------------
 proc "is-composition-consistent" {
-    is-agree-result-valid "Component composition consistent"
+    is-result-valid "Component composition consistent"
 }
 
 
@@ -311,17 +413,16 @@ proc "is-composition-consistent" {
 // bool true if valid, false otherwise
 // ----------------------------------------------------------------------------
 proc "is-component-consistent" {
-    is-agree-result-valid "This component consistent"    
+    is-result-valid "This component consistent"    
 }
 
 
 // ----------------------------------------------------------------------------
-// Checks that the AGREE Component is "Valid"
+// Checks that the AGREE Realizability is "Valid"
 //
 // Desription:
-// Checks the AGREE Results view and determines if the result is "Valid".
-// Will wait for AGREE to finish before checking.
-// Will report a failure if "Invalid" or "Unknown" is found in the string.
+// Checks the AGREE Results view and determines if the Realizability Result
+// is Valid. Will wait for AGREE to finish before checking.
 // 
 // Assumptions:
 // - AGREE has been started
@@ -329,51 +430,13 @@ proc "is-component-consistent" {
 // Return:
 // bool true if valid, false otherwise
 // ----------------------------------------------------------------------------
-proc "is-item-valid" [val item] {
-    is-agree-result-valid $item
+proc "is-realizability-valid" {
+    is-result-valid "Realizability Result"
 }
 
 
 // ----------------------------------------------------------------------------
-// Checks that the AGREE Component is "Invalid"
-//
-// Desription:
-// Checks the AGREE Results view and determines if the result is "Invalid".
-// Will wait for AGREE to finish before checking.
-// Will report a failure if "Valid" or "Unknown" is found in the string.
-// 
-// Assumptions:
-// - AGREE has been started
-//
-// Return:
-// bool true if valid, false otherwise
-// ----------------------------------------------------------------------------
-proc "is-item-invalid" [val item] {
-    is-agree-result-invalid $item
-}
-
-
-// ----------------------------------------------------------------------------
-// Checks that the AGREE Component is "Unknown"
-//
-// Desription:
-// Checks the AGREE Results view and determines if the result is "Unknown".
-// Will wait for AGREE to finish before checking.
-// Will report a failure if "Valid" or "Invalid" is found in the string.
-// 
-// Assumptions:
-// - AGREE has been started
-//
-// Return:
-// bool true if valid, false otherwise
-// ----------------------------------------------------------------------------
-proc "is-item-unknown" [val item] {
-    is-agree-result-unknown $item
-}
-
-
-// ----------------------------------------------------------------------------
-// Checks that an AGREE Result is Valid
+// Checks that a Result is Valid
 //
 // Desription:
 // Given a string argument denoting a tree-item (Property column) name in the 
@@ -386,7 +449,7 @@ proc "is-item-unknown" [val item] {
 // Return:
 // bool true if valid, false otherwise
 // ----------------------------------------------------------------------------
-proc "is-agree-result-valid" [val theProperty] {
+proc "is-result-valid" [val theProperty] {
     wait-for-agree
     try -command {
         // For AGREE Results stemming from running AGREE Single Layer
@@ -405,7 +468,7 @@ proc "is-agree-result-valid" [val theProperty] {
 
 
 // ----------------------------------------------------------------------------
-// Checks that an AGREE Result is Invalid
+// Checks that a Result is Invalid
 //
 // Desription:
 // Given a string argument denoting a tree-item (Property column) name in the 
@@ -418,7 +481,7 @@ proc "is-agree-result-valid" [val theProperty] {
 // Return:
 // bool true if valid, false otherwise
 // ----------------------------------------------------------------------------
-proc "is-agree-result-invalid" [val theProperty] {
+proc "is-result-invalid" [val theProperty] {
     wait-for-agree
     try -command {
         // For AGREE Results stemming from running AGREE Single Layer
@@ -437,7 +500,7 @@ proc "is-agree-result-invalid" [val theProperty] {
 
 
 // ----------------------------------------------------------------------------
-// Checks that an AGREE Result is Unknown
+// Checks that a Result is Unknown
 //
 // Desription:
 // Given a string argument denoting a tree-item (Property column) name in the 
@@ -450,7 +513,7 @@ proc "is-agree-result-invalid" [val theProperty] {
 // Return:
 // bool true if valid, false otherwise
 // ----------------------------------------------------------------------------
-proc "is-agree-result-unknown" [val theProperty] {
+proc "is-result-unknown" [val theProperty] {
     wait-for-agree
     try -command {
         // For AGREE Results stemming from running AGREE Single Layer
@@ -492,13 +555,11 @@ proc "check-agree-result" [val theProperty][val theResult] {
     
     try -command {
         // For AGREE Results stemming from running AGREE Single Layer
-        //get-view "AGREE Results" | get-tree | get-item $theProperty | get-property "columns[1]" -raw | contains $theResult
         get-view "AGREE Results" | get-tree | get-item $theProperty | get-property "columns[1]" -raw | equals $theResult
                 
     } -catch {
         // For AGREE Results stemming from running AGREE All Layers
         let [val newProperty [concat [get-view "AGREE Results" | get-tree | get-item ".*" | get-text] "/" [$theProperty]]] {
-            //get-view "AGREE Results" | get-tree | get-item $newProperty | get-property "columns[1]" -raw | contains $theResult
             get-view "AGREE Results" | get-tree | get-item $newProperty | get-property "columns[1]" -raw | equals $theResult
         }
     }
