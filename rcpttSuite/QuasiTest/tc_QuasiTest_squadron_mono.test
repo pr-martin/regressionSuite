@@ -1,12 +1,12 @@
 --- RCPTT testcase ---
 Format-Version: 1.0
-Element-Name: tc_QuasiTest_squadron_single
+Element-Name: tc_QuasiTest_squadron_mono
 Element-Type: testcase
 Element-Version: 3.0
 External-Reference: 
-Id: _SSAYcEhNEeW__YM9LKkA0A
+Id: _oH7lELY5EeW4mI89TWHy4g
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 1/8/16 10:06 AM
+Save-Time: 1/8/16 12:02 PM
 Testcase-Type: ecl
 
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
@@ -17,7 +17,7 @@ Entry-Name: .content
 // Regression Test for QuasiTest package
 //
 // 
-// Executes the AGREE verification for Single Layer.
+// Executes the AGREE verification for Realizability and Monolithic
 //
 // Tests the Squadron System Implementation.
 // ----------------------------------------------------------------------------
@@ -26,19 +26,30 @@ test-setup
 
 select-aadl-file "QuasiTest/packages/QuasiTest.aadl"
 
-// Assertion will stop test at this call
-run-agree-single-layer [get-sys-impl "Package Public QuasiTest_public/System Impl Squadron.impl"] | verify-true
+// Check Realizability
+run-agree-realizability [get-sys-impl "Package Public QuasiTest_public/System Impl Squadron.impl"] | verify-true
+is-realizability-valid
 
-is-result-invalid "leader equivalence" | verify-true
+// Check Monolithically
+run-agree-monolithically [get-sys-impl "Package Public QuasiTest_public/System Impl Squadron.impl"] | verify-true
+
+is-result-unknown "leader equivalence" | verify-true
+is-result-valid "form_right.VA assume: not shifting both same" | verify-true
+is-result-valid "form_right.VB assume: not shifting both same" | verify-true
+is-result-valid "form_right.VC assume: not shifting both same" | verify-true
 is-result-valid "form_right assume: not shifting both same" | verify-true
 is-result-valid "form_right assume: only shift if none pending" | verify-true
 is-result-valid "form_right assume: left shift time" | verify-true
 is-result-valid "form_right assume: right shift time" | verify-true
+
+is-result-valid "form_left.VA assume: not shifting both same" | verify-true
+is-result-valid "form_left.VB assume: not shifting both same" | verify-true
+is-result-valid "form_left.VC assume: not shifting both same" | verify-true
 is-result-valid "form_left assume: not shifting both same" | verify-true
 is-result-valid "form_left assume: only shift if none pending" | verify-true
 is-result-valid "form_left assume: left shift time" | verify-true
 is-result-valid "form_left assume: right shift time" | verify-true
-check-agree-result "Contract Guarantees" "1 Invalid, 8 Valid" | verify-true
+check-agree-result "Contract Guarantees" "1 Unknown, 14 Valid" | verify-true
 
 is-result-valid "form_right consistent" | verify-true
 is-result-valid "form_left consistent" | verify-true

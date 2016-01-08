@@ -6,7 +6,7 @@ Element-Version: 3.0
 External-Reference: 
 Id: _RRwnELSjEeWLOcoTTjI_-g
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 1/7/16 3:02 PM
+Save-Time: 1/8/16 9:51 AM
 Testcase-Type: ecl
 
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
@@ -29,167 +29,167 @@ select-aadl-file "QuasiTest/packages/QuasiTest.aadl"
 run-agree-all-layers [get-sys-impl "Package Public QuasiTest_public/System Impl Squadron.impl"] | verify-true
 
 // Check Guarantees
-is-item-invalid "Contract Guarantees/leader equivalence" | verify-true
-is-item-valid "Contract Guarantees/form_right assume: not shifting both same" | verify-true
-is-item-valid "Contract Guarantees/form_right assume: only shift if none pending" | verify-true
-is-item-valid "Contract Guarantees/form_right assume: left shift time" | verify-true
-is-item-valid "Contract Guarantees/form_right assume: right shift time" | verify-true
-is-item-valid "Contract Guarantees/form_left assume: not shifting both same" | verify-true
-is-item-valid "Contract Guarantees/form_left assume: only shift if none pending" | verify-true
-is-item-valid "Contract Guarantees/form_left assume: left shift time" | verify-true
-is-item-valid "Contract Guarantees/form_left assume: right shift time" | verify-true
+is-result-invalid "Contract Guarantees/leader equivalence" | verify-true
+is-result-valid "Contract Guarantees/form_right assume: not shifting both same" | verify-true
+is-result-valid "Contract Guarantees/form_right assume: only shift if none pending" | verify-true
+is-result-valid "Contract Guarantees/form_right assume: left shift time" | verify-true
+is-result-valid "Contract Guarantees/form_right assume: right shift time" | verify-true
+is-result-valid "Contract Guarantees/form_left assume: not shifting both same" | verify-true
+is-result-valid "Contract Guarantees/form_left assume: only shift if none pending" | verify-true
+is-result-valid "Contract Guarantees/form_left assume: left shift time" | verify-true
+is-result-valid "Contract Guarantees/form_left assume: right shift time" | verify-true
 check-agree-result "Contract Guarantees" "1 Invalid, 8 Valid" | verify-true
 
-is-item-valid "form_right consistent" | verify-true
-is-item-valid "form_left consistent" | verify-true
+is-result-valid "form_right consistent" | verify-true
+is-result-valid "form_left consistent" | verify-true
 is-composition-consistent | verify-true
 is-component-consistent | verify-true
 
 // Deep check for the "Verification for form_right" and sub-categories
-is-item-valid "Verification for form_right/Contract Guarantees/leader in range" | verify-true
-is-item-valid "Verification for form_right/Contract Guarantees/right in range" | verify-true
-is-item-valid "Verification for form_right/Contract Guarantees/left in range" | verify-true
-is-item-valid "Verification for form_right/Contract Guarantees/pend_leader in range" | verify-true
-is-item-valid "Verification for form_right/Contract Guarantees/pend_right in range" | verify-true
-is-item-valid "Verification for form_right/Contract Guarantees/pend_left in range" | verify-true
-is-item-valid "Verification for form_right/Contract Guarantees/no two pending in the same position" | verify-true
-is-item-valid "Verification for form_right/Contract Guarantees/no two in the same final position" | verify-true
-is-item-valid "Verification for form_right/Contract Guarantees/all components in some position" | verify-true
-is-item-valid "Verification for form_right/Contract Guarantees/atomic pending shift right" | verify-true
-is-item-valid "Verification for form_right/Contract Guarantees/atomic pending shift left" | verify-true
-is-item-valid "Verification for form_right/Contract Guarantees/atomic pending shift leader" | verify-true
-is-item-valid "Verification for form_right/Contract Guarantees/non atomic leader shift" | verify-true
-is-item-valid "Verification for form_right/Contract Guarantees/non atomic right shift" | verify-true
-is-item-valid "Verification for form_right/Contract Guarantees/non atomic left shift" | verify-true
-is-item-valid "Verification for form_right/Contract Guarantees/right shift behavior" | verify-true
-is-item-valid "Verification for form_right/Contract Guarantees/left shift behavior" | verify-true
-is-item-valid "Verification for form_right/Contract Guarantees/not pending or shifting means not moving" | verify-true
-is-item-valid "Verification for form_right/Contract Guarantees/form_right.VA assume: not shifting both same" | verify-true
-is-item-valid "Verification for form_right/Contract Guarantees/form_right.VB assume: not shifting both same" | verify-true
-is-item-valid "Verification for form_right/Contract Guarantees/form_right.VC assume: not shifting both same" | verify-true
+is-result-valid "Verification for form_right/Contract Guarantees/leader in range" | verify-true
+is-result-valid "Verification for form_right/Contract Guarantees/right in range" | verify-true
+is-result-valid "Verification for form_right/Contract Guarantees/left in range" | verify-true
+is-result-valid "Verification for form_right/Contract Guarantees/pend_leader in range" | verify-true
+is-result-valid "Verification for form_right/Contract Guarantees/pend_right in range" | verify-true
+is-result-valid "Verification for form_right/Contract Guarantees/pend_left in range" | verify-true
+is-result-valid "Verification for form_right/Contract Guarantees/no two pending in the same position" | verify-true
+is-result-valid "Verification for form_right/Contract Guarantees/no two in the same final position" | verify-true
+is-result-valid "Verification for form_right/Contract Guarantees/all components in some position" | verify-true
+is-result-valid "Verification for form_right/Contract Guarantees/atomic pending shift right" | verify-true
+is-result-valid "Verification for form_right/Contract Guarantees/atomic pending shift left" | verify-true
+is-result-valid "Verification for form_right/Contract Guarantees/atomic pending shift leader" | verify-true
+is-result-valid "Verification for form_right/Contract Guarantees/non atomic leader shift" | verify-true
+is-result-valid "Verification for form_right/Contract Guarantees/non atomic right shift" | verify-true
+is-result-valid "Verification for form_right/Contract Guarantees/non atomic left shift" | verify-true
+is-result-valid "Verification for form_right/Contract Guarantees/right shift behavior" | verify-true
+is-result-valid "Verification for form_right/Contract Guarantees/left shift behavior" | verify-true
+is-result-valid "Verification for form_right/Contract Guarantees/not pending or shifting means not moving" | verify-true
+is-result-valid "Verification for form_right/Contract Guarantees/form_right.VA assume: not shifting both same" | verify-true
+is-result-valid "Verification for form_right/Contract Guarantees/form_right.VB assume: not shifting both same" | verify-true
+is-result-valid "Verification for form_right/Contract Guarantees/form_right.VC assume: not shifting both same" | verify-true
 check-agree-result "Verification for form_right/Contract Guarantees" "21 Valid" | verify-true
 
-is-item-valid "Verification for form_right/This component consistent" | verify-true
-is-item-valid "Verification for form_right/VA consistent" | verify-true
-is-item-valid "Verification for form_right/VB consistent" | verify-true
-is-item-valid "Verification for form_right/VC consistent" | verify-true
-is-item-valid "Verification for form_right/Component composition consistent" | verify-true
+is-result-valid "Verification for form_right/This component consistent" | verify-true
+is-result-valid "Verification for form_right/VA consistent" | verify-true
+is-result-valid "Verification for form_right/VB consistent" | verify-true
+is-result-valid "Verification for form_right/VC consistent" | verify-true
+is-result-valid "Verification for form_right/Component composition consistent" | verify-true
 
-is-item-valid "Verification for form_right/Verification for VA/Contract Guarantees/state range" | verify-true
-is-item-valid "Verification for form_right/Verification for VA/Contract Guarantees/leader position behavior" | verify-true
-is-item-valid "Verification for form_right/Verification for VA/Contract Guarantees/left position behavior" | verify-true
-is-item-valid "Verification for form_right/Verification for VA/Contract Guarantees/right position behavior" | verify-true
-is-item-valid "Verification for form_right/Verification for VA/Contract Guarantees/initial state" | verify-true
-is-item-valid "Verification for form_right/Verification for VA/Contract Guarantees/stationary behavior" | verify-true
-is-item-valid "Verification for form_right/Verification for VA/Contract Guarantees/state leader transition behavior" | verify-true
-is-item-valid "Verification for form_right/Verification for VA/Contract Guarantees/state right transition behavior" | verify-true
-is-item-valid "Verification for form_right/Verification for VA/Contract Guarantees/state left transition behavior" | verify-true
+is-result-valid "Verification for form_right/Verification for VA/Contract Guarantees/state range" | verify-true
+is-result-valid "Verification for form_right/Verification for VA/Contract Guarantees/leader position behavior" | verify-true
+is-result-valid "Verification for form_right/Verification for VA/Contract Guarantees/left position behavior" | verify-true
+is-result-valid "Verification for form_right/Verification for VA/Contract Guarantees/right position behavior" | verify-true
+is-result-valid "Verification for form_right/Verification for VA/Contract Guarantees/initial state" | verify-true
+is-result-valid "Verification for form_right/Verification for VA/Contract Guarantees/stationary behavior" | verify-true
+is-result-valid "Verification for form_right/Verification for VA/Contract Guarantees/state leader transition behavior" | verify-true
+is-result-valid "Verification for form_right/Verification for VA/Contract Guarantees/state right transition behavior" | verify-true
+is-result-valid "Verification for form_right/Verification for VA/Contract Guarantees/state left transition behavior" | verify-true
 check-agree-result "Verification for form_right/Verification for VA/Contract Guarantees" "9 Valid" | verify-true
-is-item-valid "Verification for form_right/Verification for VA/This component consistent" | verify-true
-is-item-valid "Verification for form_right/Verification for VA/Component composition consistent" | verify-true
+is-result-valid "Verification for form_right/Verification for VA/This component consistent" | verify-true
+is-result-valid "Verification for form_right/Verification for VA/Component composition consistent" | verify-true
 check-agree-result "Verification for form_right/Verification for VA" "11 Valid" | verify-true
 
-is-item-valid "Verification for form_right/Verification for VB/Contract Guarantees/state range" | verify-true
-is-item-valid "Verification for form_right/Verification for VB/Contract Guarantees/leader position behavior" | verify-true
-is-item-valid "Verification for form_right/Verification for VB/Contract Guarantees/left position behavior" | verify-true
-is-item-valid "Verification for form_right/Verification for VB/Contract Guarantees/right position behavior" | verify-true
-is-item-valid "Verification for form_right/Verification for VB/Contract Guarantees/initial state" | verify-true
-is-item-valid "Verification for form_right/Verification for VB/Contract Guarantees/stationary behavior" | verify-true
-is-item-valid "Verification for form_right/Verification for VB/Contract Guarantees/state leader transition behavior" | verify-true
-is-item-valid "Verification for form_right/Verification for VB/Contract Guarantees/state right transition behavior" | verify-true
-is-item-valid "Verification for form_right/Verification for VB/Contract Guarantees/state left transition behavior" | verify-true
+is-result-valid "Verification for form_right/Verification for VB/Contract Guarantees/state range" | verify-true
+is-result-valid "Verification for form_right/Verification for VB/Contract Guarantees/leader position behavior" | verify-true
+is-result-valid "Verification for form_right/Verification for VB/Contract Guarantees/left position behavior" | verify-true
+is-result-valid "Verification for form_right/Verification for VB/Contract Guarantees/right position behavior" | verify-true
+is-result-valid "Verification for form_right/Verification for VB/Contract Guarantees/initial state" | verify-true
+is-result-valid "Verification for form_right/Verification for VB/Contract Guarantees/stationary behavior" | verify-true
+is-result-valid "Verification for form_right/Verification for VB/Contract Guarantees/state leader transition behavior" | verify-true
+is-result-valid "Verification for form_right/Verification for VB/Contract Guarantees/state right transition behavior" | verify-true
+is-result-valid "Verification for form_right/Verification for VB/Contract Guarantees/state left transition behavior" | verify-true
 check-agree-result "Verification for form_right/Verification for VB/Contract Guarantees" "9 Valid" | verify-true
-is-item-valid "Verification for form_right/Verification for VB/This component consistent" | verify-true
-is-item-valid "Verification for form_right/Verification for VB/Component composition consistent" | verify-true
+is-result-valid "Verification for form_right/Verification for VB/This component consistent" | verify-true
+is-result-valid "Verification for form_right/Verification for VB/Component composition consistent" | verify-true
 check-agree-result "Verification for form_right/Verification for VB" "11 Valid" | verify-true
 
-is-item-valid "Verification for form_right/Verification for VC/Contract Guarantees/state range" | verify-true
-is-item-valid "Verification for form_right/Verification for VC/Contract Guarantees/leader position behavior" | verify-true
-is-item-valid "Verification for form_right/Verification for VC/Contract Guarantees/left position behavior" | verify-true
-is-item-valid "Verification for form_right/Verification for VC/Contract Guarantees/right position behavior" | verify-true
-is-item-valid "Verification for form_right/Verification for VC/Contract Guarantees/initial state" | verify-true
-is-item-valid "Verification for form_right/Verification for VC/Contract Guarantees/stationary behavior" | verify-true
-is-item-valid "Verification for form_right/Verification for VC/Contract Guarantees/state leader transition behavior" | verify-true
-is-item-valid "Verification for form_right/Verification for VC/Contract Guarantees/state right transition behavior" | verify-true
-is-item-valid "Verification for form_right/Verification for VC/Contract Guarantees/state left transition behavior" | verify-true
+is-result-valid "Verification for form_right/Verification for VC/Contract Guarantees/state range" | verify-true
+is-result-valid "Verification for form_right/Verification for VC/Contract Guarantees/leader position behavior" | verify-true
+is-result-valid "Verification for form_right/Verification for VC/Contract Guarantees/left position behavior" | verify-true
+is-result-valid "Verification for form_right/Verification for VC/Contract Guarantees/right position behavior" | verify-true
+is-result-valid "Verification for form_right/Verification for VC/Contract Guarantees/initial state" | verify-true
+is-result-valid "Verification for form_right/Verification for VC/Contract Guarantees/stationary behavior" | verify-true
+is-result-valid "Verification for form_right/Verification for VC/Contract Guarantees/state leader transition behavior" | verify-true
+is-result-valid "Verification for form_right/Verification for VC/Contract Guarantees/state right transition behavior" | verify-true
+is-result-valid "Verification for form_right/Verification for VC/Contract Guarantees/state left transition behavior" | verify-true
 check-agree-result "Verification for form_right/Verification for VC/Contract Guarantees" "9 Valid" | verify-true
-is-item-valid "Verification for form_right/Verification for VC/This component consistent" | verify-true
-is-item-valid "Verification for form_right/Verification for VC/Component composition consistent" | verify-true
+is-result-valid "Verification for form_right/Verification for VC/This component consistent" | verify-true
+is-result-valid "Verification for form_right/Verification for VC/Component composition consistent" | verify-true
 check-agree-result "Verification for form_right/Verification for VC" "11 Valid" | verify-true
 
 check-agree-result "Verification for form_right" "59 Valid" | verify-true
 
 
 // Deep check for the "Verification for form_left" and sub-categories
-is-item-valid "Verification for form_left/Contract Guarantees/leader in range" | verify-true
-is-item-valid "Verification for form_left/Contract Guarantees/right in range" | verify-true
-is-item-valid "Verification for form_left/Contract Guarantees/left in range" | verify-true
-is-item-valid "Verification for form_left/Contract Guarantees/pend_leader in range" | verify-true
-is-item-valid "Verification for form_left/Contract Guarantees/pend_right in range" | verify-true
-is-item-valid "Verification for form_left/Contract Guarantees/pend_left in range" | verify-true
-is-item-valid "Verification for form_left/Contract Guarantees/no two pending in the same position" | verify-true
-is-item-valid "Verification for form_left/Contract Guarantees/no two in the same final position" | verify-true
-is-item-valid "Verification for form_left/Contract Guarantees/all components in some position" | verify-true
-is-item-valid "Verification for form_left/Contract Guarantees/atomic pending shift right" | verify-true
-is-item-valid "Verification for form_left/Contract Guarantees/atomic pending shift left" | verify-true
-is-item-valid "Verification for form_left/Contract Guarantees/atomic pending shift leader" | verify-true
-is-item-valid "Verification for form_left/Contract Guarantees/non atomic leader shift" | verify-true
-is-item-valid "Verification for form_left/Contract Guarantees/non atomic right shift" | verify-true
-is-item-valid "Verification for form_left/Contract Guarantees/non atomic left shift" | verify-true
-is-item-valid "Verification for form_left/Contract Guarantees/right shift behavior" | verify-true
-is-item-valid "Verification for form_left/Contract Guarantees/left shift behavior" | verify-true
-is-item-valid "Verification for form_left/Contract Guarantees/not pending or shifting means not moving" | verify-true
-is-item-valid "Verification for form_left/Contract Guarantees/form_left.VA assume: not shifting both same" | verify-true
-is-item-valid "Verification for form_left/Contract Guarantees/form_left.VB assume: not shifting both same" | verify-true
-is-item-valid "Verification for form_left/Contract Guarantees/form_left.VC assume: not shifting both same" | verify-true
+is-result-valid "Verification for form_left/Contract Guarantees/leader in range" | verify-true
+is-result-valid "Verification for form_left/Contract Guarantees/right in range" | verify-true
+is-result-valid "Verification for form_left/Contract Guarantees/left in range" | verify-true
+is-result-valid "Verification for form_left/Contract Guarantees/pend_leader in range" | verify-true
+is-result-valid "Verification for form_left/Contract Guarantees/pend_right in range" | verify-true
+is-result-valid "Verification for form_left/Contract Guarantees/pend_left in range" | verify-true
+is-result-valid "Verification for form_left/Contract Guarantees/no two pending in the same position" | verify-true
+is-result-valid "Verification for form_left/Contract Guarantees/no two in the same final position" | verify-true
+is-result-valid "Verification for form_left/Contract Guarantees/all components in some position" | verify-true
+is-result-valid "Verification for form_left/Contract Guarantees/atomic pending shift right" | verify-true
+is-result-valid "Verification for form_left/Contract Guarantees/atomic pending shift left" | verify-true
+is-result-valid "Verification for form_left/Contract Guarantees/atomic pending shift leader" | verify-true
+is-result-valid "Verification for form_left/Contract Guarantees/non atomic leader shift" | verify-true
+is-result-valid "Verification for form_left/Contract Guarantees/non atomic right shift" | verify-true
+is-result-valid "Verification for form_left/Contract Guarantees/non atomic left shift" | verify-true
+is-result-valid "Verification for form_left/Contract Guarantees/right shift behavior" | verify-true
+is-result-valid "Verification for form_left/Contract Guarantees/left shift behavior" | verify-true
+is-result-valid "Verification for form_left/Contract Guarantees/not pending or shifting means not moving" | verify-true
+is-result-valid "Verification for form_left/Contract Guarantees/form_left.VA assume: not shifting both same" | verify-true
+is-result-valid "Verification for form_left/Contract Guarantees/form_left.VB assume: not shifting both same" | verify-true
+is-result-valid "Verification for form_left/Contract Guarantees/form_left.VC assume: not shifting both same" | verify-true
 check-agree-result "Verification for form_left/Contract Guarantees" "21 Valid" | verify-true
 
-is-item-valid "Verification for form_left/This component consistent" | verify-true
-is-item-valid "Verification for form_left/VA consistent" | verify-true
-is-item-valid "Verification for form_left/VB consistent" | verify-true
-is-item-valid "Verification for form_left/VC consistent" | verify-true
-is-item-valid "Verification for form_left/Component composition consistent" | verify-true
+is-result-valid "Verification for form_left/This component consistent" | verify-true
+is-result-valid "Verification for form_left/VA consistent" | verify-true
+is-result-valid "Verification for form_left/VB consistent" | verify-true
+is-result-valid "Verification for form_left/VC consistent" | verify-true
+is-result-valid "Verification for form_left/Component composition consistent" | verify-true
 
-is-item-valid "Verification for form_left/Verification for VA/Contract Guarantees/state range" | verify-true
-is-item-valid "Verification for form_left/Verification for VA/Contract Guarantees/leader position behavior" | verify-true
-is-item-valid "Verification for form_left/Verification for VA/Contract Guarantees/left position behavior" | verify-true
-is-item-valid "Verification for form_left/Verification for VA/Contract Guarantees/right position behavior" | verify-true
-is-item-valid "Verification for form_left/Verification for VA/Contract Guarantees/initial state" | verify-true
-is-item-valid "Verification for form_left/Verification for VA/Contract Guarantees/stationary behavior" | verify-true
-is-item-valid "Verification for form_left/Verification for VA/Contract Guarantees/state leader transition behavior" | verify-true
-is-item-valid "Verification for form_left/Verification for VA/Contract Guarantees/state right transition behavior" | verify-true
-is-item-valid "Verification for form_left/Verification for VA/Contract Guarantees/state left transition behavior" | verify-true
+is-result-valid "Verification for form_left/Verification for VA/Contract Guarantees/state range" | verify-true
+is-result-valid "Verification for form_left/Verification for VA/Contract Guarantees/leader position behavior" | verify-true
+is-result-valid "Verification for form_left/Verification for VA/Contract Guarantees/left position behavior" | verify-true
+is-result-valid "Verification for form_left/Verification for VA/Contract Guarantees/right position behavior" | verify-true
+is-result-valid "Verification for form_left/Verification for VA/Contract Guarantees/initial state" | verify-true
+is-result-valid "Verification for form_left/Verification for VA/Contract Guarantees/stationary behavior" | verify-true
+is-result-valid "Verification for form_left/Verification for VA/Contract Guarantees/state leader transition behavior" | verify-true
+is-result-valid "Verification for form_left/Verification for VA/Contract Guarantees/state right transition behavior" | verify-true
+is-result-valid "Verification for form_left/Verification for VA/Contract Guarantees/state left transition behavior" | verify-true
 check-agree-result "Verification for form_left/Verification for VA/Contract Guarantees" "9 Valid" | verify-true
-is-item-valid "Verification for form_left/Verification for VA/This component consistent" | verify-true
-is-item-valid "Verification for form_left/Verification for VA/Component composition consistent" | verify-true
+is-result-valid "Verification for form_left/Verification for VA/This component consistent" | verify-true
+is-result-valid "Verification for form_left/Verification for VA/Component composition consistent" | verify-true
 check-agree-result "Verification for form_left/Verification for VA" "11 Valid" | verify-true
 
-is-item-valid "Verification for form_left/Verification for VB/Contract Guarantees/state range" | verify-true
-is-item-valid "Verification for form_left/Verification for VB/Contract Guarantees/leader position behavior" | verify-true
-is-item-valid "Verification for form_left/Verification for VB/Contract Guarantees/left position behavior" | verify-true
-is-item-valid "Verification for form_left/Verification for VB/Contract Guarantees/right position behavior" | verify-true
-is-item-valid "Verification for form_left/Verification for VB/Contract Guarantees/initial state" | verify-true
-is-item-valid "Verification for form_left/Verification for VB/Contract Guarantees/stationary behavior" | verify-true
-is-item-valid "Verification for form_left/Verification for VB/Contract Guarantees/state leader transition behavior" | verify-true
-is-item-valid "Verification for form_left/Verification for VB/Contract Guarantees/state right transition behavior" | verify-true
-is-item-valid "Verification for form_left/Verification for VB/Contract Guarantees/state left transition behavior" | verify-true
+is-result-valid "Verification for form_left/Verification for VB/Contract Guarantees/state range" | verify-true
+is-result-valid "Verification for form_left/Verification for VB/Contract Guarantees/leader position behavior" | verify-true
+is-result-valid "Verification for form_left/Verification for VB/Contract Guarantees/left position behavior" | verify-true
+is-result-valid "Verification for form_left/Verification for VB/Contract Guarantees/right position behavior" | verify-true
+is-result-valid "Verification for form_left/Verification for VB/Contract Guarantees/initial state" | verify-true
+is-result-valid "Verification for form_left/Verification for VB/Contract Guarantees/stationary behavior" | verify-true
+is-result-valid "Verification for form_left/Verification for VB/Contract Guarantees/state leader transition behavior" | verify-true
+is-result-valid "Verification for form_left/Verification for VB/Contract Guarantees/state right transition behavior" | verify-true
+is-result-valid "Verification for form_left/Verification for VB/Contract Guarantees/state left transition behavior" | verify-true
 check-agree-result "Verification for form_left/Verification for VB/Contract Guarantees" "9 Valid" | verify-true
-is-item-valid "Verification for form_left/Verification for VB/This component consistent" | verify-true
-is-item-valid "Verification for form_left/Verification for VB/Component composition consistent" | verify-true
+is-result-valid "Verification for form_left/Verification for VB/This component consistent" | verify-true
+is-result-valid "Verification for form_left/Verification for VB/Component composition consistent" | verify-true
 check-agree-result "Verification for form_left/Verification for VB" "11 Valid" | verify-true
 
-is-item-valid "Verification for form_left/Verification for VC/Contract Guarantees/state range" | verify-true
-is-item-valid "Verification for form_left/Verification for VC/Contract Guarantees/leader position behavior" | verify-true
-is-item-valid "Verification for form_left/Verification for VC/Contract Guarantees/left position behavior" | verify-true
-is-item-valid "Verification for form_left/Verification for VC/Contract Guarantees/right position behavior" | verify-true
-is-item-valid "Verification for form_left/Verification for VC/Contract Guarantees/initial state" | verify-true
-is-item-valid "Verification for form_left/Verification for VC/Contract Guarantees/stationary behavior" | verify-true
-is-item-valid "Verification for form_left/Verification for VC/Contract Guarantees/state leader transition behavior" | verify-true
-is-item-valid "Verification for form_left/Verification for VC/Contract Guarantees/state right transition behavior" | verify-true
-is-item-valid "Verification for form_left/Verification for VC/Contract Guarantees/state left transition behavior" | verify-true
+is-result-valid "Verification for form_left/Verification for VC/Contract Guarantees/state range" | verify-true
+is-result-valid "Verification for form_left/Verification for VC/Contract Guarantees/leader position behavior" | verify-true
+is-result-valid "Verification for form_left/Verification for VC/Contract Guarantees/left position behavior" | verify-true
+is-result-valid "Verification for form_left/Verification for VC/Contract Guarantees/right position behavior" | verify-true
+is-result-valid "Verification for form_left/Verification for VC/Contract Guarantees/initial state" | verify-true
+is-result-valid "Verification for form_left/Verification for VC/Contract Guarantees/stationary behavior" | verify-true
+is-result-valid "Verification for form_left/Verification for VC/Contract Guarantees/state leader transition behavior" | verify-true
+is-result-valid "Verification for form_left/Verification for VC/Contract Guarantees/state right transition behavior" | verify-true
+is-result-valid "Verification for form_left/Verification for VC/Contract Guarantees/state left transition behavior" | verify-true
 check-agree-result "Verification for form_left/Verification for VC/Contract Guarantees" "9 Valid" | verify-true
-is-item-valid "Verification for form_left/Verification for VC/This component consistent" | verify-true
-is-item-valid "Verification for form_left/Verification for VC/Component composition consistent" | verify-true
+is-result-valid "Verification for form_left/Verification for VC/This component consistent" | verify-true
+is-result-valid "Verification for form_left/Verification for VC/Component composition consistent" | verify-true
 check-agree-result "Verification for form_left/Verification for VC" "11 Valid" | verify-true
 
 check-agree-result "Verification for form_left" "59 Valid" | verify-true
