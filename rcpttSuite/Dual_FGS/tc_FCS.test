@@ -6,7 +6,7 @@ Element-Version: 3.0
 External-Reference: 
 Id: _8Qr8MDrsEeW5lZkwAQHAzQ
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 1/7/16 2:10 PM
+Save-Time: 1/8/16 5:23 PM
 Testcase-Type: ecl
 
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
@@ -17,7 +17,8 @@ Entry-Name: .content
 // Regression Test for FCS package
 //
 // 
-// Executes the AGREE verification for Single Layer and All Layers.
+// Executes the AGREE verification for Single, All, Realizability and
+// Monolithic.
 //
 // ----------------------------------------------------------------------------
 
@@ -29,35 +30,50 @@ run-agree-single-layer [select-sys-impl "Package Public FCS_public/System Impl F
 
 // Special case for the guarantees. Must look at each sub-item as one will
 // produce a counter-example.
-is-item-valid "pitch is valid" | verify-true
-is-item-invalid "pitch step is valid" | verify-true
+is-result-valid "pitch is valid" | verify-true
+is-result-invalid "pitch step is valid" | verify-true
 check-agree-result "Contract Guarantees" "1 Invalid, 1 Valid"
 
 // Check remaining items at top-level
 is-component-consistent | verify-true
 is-composition-consistent | verify-true
-is-item-valid "AP consistent" | verify-true
-is-item-valid "FGS_L consistent" | verify-true
-is-item-valid "FGS_R consistent" | verify-true
+is-result-valid "AP consistent" | verify-true
+is-result-valid "FGS_L consistent" | verify-true
+is-result-valid "FGS_R consistent" | verify-true
 
 
 run-agree-all-layers [select-sys-impl "Package Public FCS_public/System Impl Flight_Control_System.Flight_Control_System_Impl"] | verify-true
 
 // Special case for the guarantees. Must look at each sub-item as one will
 // produce a counter-example.
-is-item-valid "Contract Guarantees/pitch is valid" | verify-true
-is-item-invalid "Contract Guarantees/pitch step is valid" | verify-true
+is-result-valid "Contract Guarantees/pitch is valid" | verify-true
+is-result-invalid "Contract Guarantees/pitch step is valid" | verify-true
 check-agree-result "Contract Guarantees" "1 Invalid, 1 Valid" | verify-true
 
 // Check remaining items at top-level
 is-component-consistent | verify-true
 is-composition-consistent | verify-true
-is-item-valid "AP consistent" | verify-true
-is-item-valid "FGS_L consistent" | verify-true
-is-item-valid "FGS_R consistent" | verify-true
+is-result-valid "AP consistent" | verify-true
+is-result-valid "FGS_L consistent" | verify-true
+is-result-valid "FGS_R consistent" | verify-true
 
 // Top level for All Layers
 check-agree-result "Verification for Flight_Control_System.Flight_Control_System_Impl" "1 Invalid, 23 Valid" | verify-true
+
+// Check Realizability
+run-agree-realizability [select-sys-impl "Package Public FCS_public/System Impl Flight_Control_System.Flight_Control_System_Impl"] | verify-true
+is-realizability-unknown | verify-true
+
+// Verify Monolithically
+run-agree-monolithically [select-sys-impl "Package Public FCS_public/System Impl Flight_Control_System.Flight_Control_System_Impl"] | verify-true
+is-result-valid "pitch is valid" | verify-true
+is-result-invalid "pitch step is valid" | verify-true
+check-agree-result "Contract Guarantees" "1 Invalid, 1 Valid" 
+is-component-consistent | verify-true
+is-composition-consistent | verify-true
+is-result-valid "AP consistent" | verify-true
+is-result-valid "FGS_L consistent" | verify-true
+is-result-valid "FGS_R consistent" | verify-true
 
 test-teardown
 
