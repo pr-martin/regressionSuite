@@ -1,12 +1,12 @@
 --- RCPTT testcase ---
 Format-Version: 1.0
-Element-Name: tc_GPCA_SW_single
+Element-Name: tc_GPCA_SW_mono
 Element-Type: testcase
 Element-Version: 3.0
 External-Reference: 
-Id: _5okr0KkIEeWKId6icRB3FA
+Id: _1ziDgLZnEeWCd_MF12OcJA
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 1/8/16 3:25 PM
+Save-Time: 1/8/16 4:29 PM
 Testcase-Type: ecl
 
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
@@ -17,20 +17,23 @@ Entry-Name: .content
 // Regression Test for GPCA_SW package
 //
 // 
-// Executes the AGREE verification for Single Layer.
+// Executes the AGREE verification for Realizability and Monolithic.
 //
 // ----------------------------------------------------------------------------
 
 test-setup
 
 select-aadl-file "GPCA_Controller/packages/GPCA_SW.aadl"
-run-agree-single-layer [select-sys-impl "Package Public GPCA_SW_public/System Impl GPCA_SW.Impl"] | verify-true
+
+run-agree-realizability [select-sys-impl "Package Public GPCA_SW_public/System Impl GPCA_SW.Impl"] | verify-true
+is-realizability-valid | verify-true
+
+run-agree-monolithically [select-sys-impl "Package Public GPCA_SW_public/System Impl GPCA_SW.Impl"] | verify-true
 
 // Check the sub-guarantees individually
 is-result-invalid "PROPERTY 17 : empty_reservoir_implies_audio " | verify-true
 is-result-invalid "PROPERTY 18 : empty_reservoir_implies_visual_1 " | verify-true
 check-agree-result "Contract Guarantees" "2 Invalid, 18 Valid" | verify-true
-
 
 is-component-consistent | verify-true
 is-composition-consistent | verify-true
