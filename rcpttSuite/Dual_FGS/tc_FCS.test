@@ -6,7 +6,7 @@ Element-Version: 3.0
 External-Reference: 
 Id: _8Qr8MDrsEeW5lZkwAQHAzQ
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 1/8/16 5:23 PM
+Save-Time: 1/11/16 7:47 AM
 Testcase-Type: ecl
 
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
@@ -32,7 +32,7 @@ run-agree-single-layer [select-sys-impl "Package Public FCS_public/System Impl F
 // produce a counter-example.
 is-result-valid "pitch is valid" | verify-true
 is-result-invalid "pitch step is valid" | verify-true
-check-agree-result "Contract Guarantees" "1 Invalid, 1 Valid"
+check-agree-result "Contract Guarantees" "1 Invalid, 1 Valid" | verify-true
 
 // Check remaining items at top-level
 is-component-consistent | verify-true
