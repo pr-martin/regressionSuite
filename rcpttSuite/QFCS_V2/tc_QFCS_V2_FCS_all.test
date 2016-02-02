@@ -6,7 +6,7 @@ Element-Version: 3.0
 External-Reference: 
 Id: _Roge4LS-EeWLOcoTTjI_-g
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 1/8/16 12:31 PM
+Save-Time: 2/1/16 3:30 PM
 Testcase-Type: ecl
 
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
@@ -39,16 +39,16 @@ is-result-valid "FCC3 consistent" | verify-true
 is-result-valid "FCC4 consistent" | verify-true
 
 // Verification of FCC1
-is-result-unknown "Verification for FCC1/Contract Guarantees/elevator bound" | verify-true
-is-result-unknown "Verification for FCC1/Contract Guarantees/ailerons bound" | verify-true
-is-result-unknown "Verification for FCC1/Contract Guarantees/flaps bound" | verify-true
-is-result-unknown "Verification for FCC1/Contract Guarantees/rudders bound" | verify-true
-is-result-unknown "Verification for FCC1/Contract Guarantees/spoilers bound" | verify-true
-is-result-unknown "Verification for FCC1/Contract Guarantees/stabilzers bound" | verify-true
-is-result-unknown "Verification for FCC1/Contract Guarantees/actuators output range bound" | verify-true
-is-result-unknown "Verification for FCC1/Contract Guarantees/OSAS-S-140" | verify-true
-is-result-unknown "Verification for FCC1/Contract Guarantees/once failed always failed" | verify-true
-check-agree-result "Verification for FCC1/Contract Guarantees" "9 Unknown" | verify-true
+is-result-valid "Verification for FCC1/Contract Guarantees/elevator bound" | verify-true
+is-result-valid "Verification for FCC1/Contract Guarantees/ailerons bound" | verify-true
+is-result-valid "Verification for FCC1/Contract Guarantees/flaps bound" | verify-true
+is-result-valid "Verification for FCC1/Contract Guarantees/rudders bound" | verify-true
+is-result-valid "Verification for FCC1/Contract Guarantees/spoilers bound" | verify-true
+is-result-valid "Verification for FCC1/Contract Guarantees/stabilzers bound" | verify-true
+is-result-valid "Verification for FCC1/Contract Guarantees/actuators output range bound" | verify-true
+is-result-valid "Verification for FCC1/Contract Guarantees/OSAS-S-140" | verify-true
+is-result-valid "Verification for FCC1/Contract Guarantees/once failed always failed" | verify-true
+check-agree-result "Verification for FCC1/Contract Guarantees" "9 Valid" | verify-true
 
 is-result-valid "Verification for FCC1/This component consistent" | verify-true
 is-result-valid "Verification for FCC1/Component composition consistent" | verify-true
@@ -56,19 +56,19 @@ is-result-valid "Verification for FCC1/ISAS_comp consistent" | verify-true
 is-result-valid "Verification for FCC1/OSAS_comp consistent" | verify-true
 is-result-valid "Verification for FCC1/CLAW_comp consistent" | verify-true
 
-check-agree-result "Verification for FCC1" "9 Unknown, 5 Valid" | verify-true
+check-agree-result "Verification for FCC1" "14 Valid" | verify-true
 
 // Verification of FCC2
-is-result-unknown "Verification for FCC2/Contract Guarantees/elevator bound" | verify-true
-is-result-unknown "Verification for FCC2/Contract Guarantees/ailerons bound" | verify-true
-is-result-unknown "Verification for FCC2/Contract Guarantees/flaps bound" | verify-true
-is-result-unknown "Verification for FCC2/Contract Guarantees/rudders bound" | verify-true
-is-result-unknown "Verification for FCC2/Contract Guarantees/spoilers bound" | verify-true
-is-result-unknown "Verification for FCC2/Contract Guarantees/stabilzers bound" | verify-true
-is-result-unknown "Verification for FCC2/Contract Guarantees/actuators output range bound" | verify-true
-is-result-unknown "Verification for FCC2/Contract Guarantees/OSAS-S-140" | verify-true
-is-result-unknown "Verification for FCC2/Contract Guarantees/once failed always failed" | verify-true
-check-agree-result "Verification for FCC2/Contract Guarantees" "9 Unknown" | verify-true
+is-result-valid "Verification for FCC2/Contract Guarantees/elevator bound" | verify-true
+is-result-valid "Verification for FCC2/Contract Guarantees/ailerons bound" | verify-true
+is-result-valid "Verification for FCC2/Contract Guarantees/flaps bound" | verify-true
+is-result-valid "Verification for FCC2/Contract Guarantees/rudders bound" | verify-true
+is-result-valid "Verification for FCC2/Contract Guarantees/spoilers bound" | verify-true
+is-result-valid "Verification for FCC2/Contract Guarantees/stabilzers bound" | verify-true
+is-result-valid "Verification for FCC2/Contract Guarantees/actuators output range bound" | verify-true
+is-result-valid "Verification for FCC2/Contract Guarantees/OSAS-S-140" | verify-true
+is-result-valid "Verification for FCC2/Contract Guarantees/once failed always failed" | verify-true
+check-agree-result "Verification for FCC2/Contract Guarantees" "9 Valid" | verify-true
 
 is-result-valid "Verification for FCC2/This component consistent" | verify-true
 is-result-valid "Verification for FCC2/Component composition consistent" | verify-true
@@ -76,19 +76,19 @@ is-result-valid "Verification for FCC2/ISAS_comp consistent" | verify-true
 is-result-valid "Verification for FCC2/OSAS_comp consistent" | verify-true
 is-result-valid "Verification for FCC2/CLAW_comp consistent" | verify-true
 
-check-agree-result "Verification for FCC2" "9 Unknown, 5 Valid" | verify-true
+check-agree-result "Verification for FCC2" "14 Valid" | verify-true
 
 // Verification of FCC3
-is-result-unknown "Verification for FCC3/Contract Guarantees/elevator bound" | verify-true
-is-result-unknown "Verification for FCC3/Contract Guarantees/ailerons bound" | verify-true
-is-result-unknown "Verification for FCC3/Contract Guarantees/flaps bound" | verify-true
-is-result-unknown "Verification for FCC3/Contract Guarantees/rudders bound" | verify-true
-is-result-unknown "Verification for FCC3/Contract Guarantees/spoilers bound" | verify-true
-is-result-unknown "Verification for FCC3/Contract Guarantees/stabilzers bound" | verify-true
-is-result-unknown "Verification for FCC3/Contract Guarantees/actuators output range bound" | verify-true
-is-result-unknown "Verification for FCC3/Contract Guarantees/OSAS-S-140" | verify-true
-is-result-unknown "Verification for FCC3/Contract Guarantees/once failed always failed" | verify-true
-check-agree-result "Verification for FCC3/Contract Guarantees" "9 Unknown" | verify-true
+is-result-valid "Verification for FCC3/Contract Guarantees/elevator bound" | verify-true
+is-result-valid "Verification for FCC3/Contract Guarantees/ailerons bound" | verify-true
+is-result-valid "Verification for FCC3/Contract Guarantees/flaps bound" | verify-true
+is-result-valid "Verification for FCC3/Contract Guarantees/rudders bound" | verify-true
+is-result-valid "Verification for FCC3/Contract Guarantees/spoilers bound" | verify-true
+is-result-valid "Verification for FCC3/Contract Guarantees/stabilzers bound" | verify-true
+is-result-valid "Verification for FCC3/Contract Guarantees/actuators output range bound" | verify-true
+is-result-valid "Verification for FCC3/Contract Guarantees/OSAS-S-140" | verify-true
+is-result-valid "Verification for FCC3/Contract Guarantees/once failed always failed" | verify-true
+check-agree-result "Verification for FCC3/Contract Guarantees" "9 Valid" | verify-true
 
 is-result-valid "Verification for FCC3/This component consistent" | verify-true
 is-result-valid "Verification for FCC3/Component composition consistent" | verify-true
@@ -96,19 +96,19 @@ is-result-valid "Verification for FCC3/ISAS_comp consistent" | verify-true
 is-result-valid "Verification for FCC3/OSAS_comp consistent" | verify-true
 is-result-valid "Verification for FCC3/CLAW_comp consistent" | verify-true
 
-check-agree-result "Verification for FCC3" "9 Unknown, 5 Valid" | verify-true
+check-agree-result "Verification for FCC3" "14 Valid" | verify-true
 
 // Verification of FCC4
-is-result-unknown "Verification for FCC4/Contract Guarantees/elevator bound" | verify-true
-is-result-unknown "Verification for FCC4/Contract Guarantees/ailerons bound" | verify-true
-is-result-unknown "Verification for FCC4/Contract Guarantees/flaps bound" | verify-true
-is-result-unknown "Verification for FCC4/Contract Guarantees/rudders bound" | verify-true
-is-result-unknown "Verification for FCC4/Contract Guarantees/spoilers bound" | verify-true
-is-result-unknown "Verification for FCC4/Contract Guarantees/stabilzers bound" | verify-true
-is-result-unknown "Verification for FCC4/Contract Guarantees/actuators output range bound" | verify-true
-is-result-unknown "Verification for FCC4/Contract Guarantees/OSAS-S-140" | verify-true
-is-result-unknown "Verification for FCC4/Contract Guarantees/once failed always failed" | verify-true
-check-agree-result "Verification for FCC4/Contract Guarantees" "9 Unknown" | verify-true
+is-result-valid "Verification for FCC4/Contract Guarantees/elevator bound" | verify-true
+is-result-valid "Verification for FCC4/Contract Guarantees/ailerons bound" | verify-true
+is-result-valid "Verification for FCC4/Contract Guarantees/flaps bound" | verify-true
+is-result-valid "Verification for FCC4/Contract Guarantees/rudders bound" | verify-true
+is-result-valid "Verification for FCC4/Contract Guarantees/spoilers bound" | verify-true
+is-result-valid "Verification for FCC4/Contract Guarantees/stabilzers bound" | verify-true
+is-result-valid "Verification for FCC4/Contract Guarantees/actuators output range bound" | verify-true
+is-result-valid "Verification for FCC4/Contract Guarantees/OSAS-S-140" | verify-true
+is-result-valid "Verification for FCC4/Contract Guarantees/once failed always failed" | verify-true
+check-agree-result "Verification for FCC4/Contract Guarantees" "9 Valid" | verify-true
 
 is-result-valid "Verification for FCC4/This component consistent" | verify-true
 is-result-valid "Verification for FCC4/Component composition consistent" | verify-true
@@ -116,14 +116,14 @@ is-result-valid "Verification for FCC4/ISAS_comp consistent" | verify-true
 is-result-valid "Verification for FCC4/OSAS_comp consistent" | verify-true
 is-result-valid "Verification for FCC4/CLAW_comp consistent" | verify-true
 
-check-agree-result "Verification for FCC4" "9 Unknown, 5 Valid" | verify-true
+check-agree-result "Verification for FCC4" "14 Valid" | verify-true
 
 // Top level Consistency and Composition
 is-composition-consistent | verify-true
 is-component-consistent | verify-true
 
 // Check the top level to see if anything else snuck in.
-check-agree-result "Verification for FCS.impl" "36 Unknown, 28 Valid" | verify-true
+check-agree-result "Verification for FCS.impl" "64 Valid" | verify-true
 
 test-teardown
 

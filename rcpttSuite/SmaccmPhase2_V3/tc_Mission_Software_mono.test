@@ -6,7 +6,7 @@ Element-Version: 3.0
 External-Reference: 
 Id: _11o4MLWqEeWtEoGXVYIlEg
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 1/7/16 6:02 PM
+Save-Time: 2/1/16 6:31 PM
 Testcase-Type: ecl
 
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
@@ -35,12 +35,12 @@ run-agree-monolithically [select-sys-impl "Package Public Mission_Software_publi
 
 // Guarantees - check top level and then sub-categories
 is-result-valid " lemma: positive runtimes" | verify-true
+is-result-valid "not frequent can" | verify-true
+is-result-valid "if a message is sent to the flight board then it was received over mavlink" | verify-true
 is-result-valid "time positive and increasing" | verify-true
 is-result-valid "next time greater than current" | verify-true
-is-result-unknown "not frequent can" | verify-true
-is-result-unknown "if a message is sent to the flight board then it was received over mavlink" | verify-true
-is-result-unknown "time change bound" | verify-true
-check-agree-result "Contract Guarantees" "3 Unknown, 3 Valid" | verify-true
+is-result-valid "time change bound" | verify-true
+check-agree-result "Contract Guarantees" "6 Valid" | verify-true
 
 // Check overall consistency and composition
 is-component-consistent | verify-true
