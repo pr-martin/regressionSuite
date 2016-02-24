@@ -5,8 +5,8 @@ Element-Type: testcase
 Element-Version: 3.0
 External-Reference: 
 Id: _kmeP4LQdEeWKiuOLY7h7Eg
-Runtime-Version: 2.0.0.201506120617
-Save-Time: 2/16/16 5:59 PM
+Runtime-Version: 2.0.1.201508250612
+Save-Time: 2/23/16 6:58 PM
 Testcase-Type: ecl
 
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
@@ -33,8 +33,8 @@ is-result-valid "Contract Guarantees/time positive and increasing" | verify-true
 is-result-valid "Contract Guarantees/next time greater than current" | verify-true
 is-result-unknown "Contract Guarantees/not frequent can" | verify-true
 is-result-unknown "Contract Guarantees/if a message is sent to the flight board then it was received over mavlink" | verify-true
-is-result-valid "Contract Guarantees/time change bound" | verify-true
-check-agree-result "Contract Guarantees" "2 Unknown, 4 Valid" | verify-true
+is-result-unknown "Contract Guarantees/time change bound" | verify-true
+check-agree-result "Contract Guarantees" "3 Unknown, 3 Valid" | verify-true
 
 // Check overall consistency and composition
 is-component-consistent | verify-true
@@ -50,7 +50,7 @@ is-result-valid "transmit consistent" | verify-true
 is-result-valid "encrypt consistent" | verify-true
 
 // Check the top level to see if anything else snuck in.
-check-agree-result "Verification for software.i" "2 Unknown, 13 Valid" | verify-true
+check-agree-result "Verification for software.i" "3 Unknown, 12 Valid" | verify-true
 
 test-teardown
 
