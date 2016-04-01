@@ -6,7 +6,7 @@ Element-Version: 3.0
 External-Reference: 
 Id: _8Qr8MDrsEeW5lZkwAQHAzQ
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 4/1/16 2:45 PM
+Save-Time: 4/1/16 3:04 PM
 Testcase-Type: ecl
 
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
@@ -61,7 +61,7 @@ is-result-valid "FGS_R consistent" | verify-true
 check-agree-result "Verification for Flight_Control_System.Flight_Control_System_Impl" "1 Invalid, 23 Valid" | verify-true
 
 // Check Realizability
-run-agree-realizability [select-outline-item "Package Public FCS_public/System Impl Flight_Control_System.Flight_Control_System_Impl"] | verify-true
+run-agree-realizability [select-outline-item "Package Public FCS_public/System Flight_Control_System"] | verify-true
 is-realizability-unknown | verify-true
 
 // Verify Monolithically
