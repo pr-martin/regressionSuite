@@ -5,7 +5,7 @@ Element-Type: testsuite
 Element-Version: 2.0
 Id: _huWAwDr-EeWXouf3h8VfIg
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 1/8/16 12:13 PM
+Save-Time: 4/1/16 4:58 PM
 
 ------=_testcase-items-62c497da-4241-31f4-811a-6b453a3ecff8
 Content-Type: text/testcase
@@ -14,5 +14,6 @@ Entry-Name: testcase-items
 _SSAYcEhNEeW__YM9LKkA0A	// kind: 'test' name: 'tc_QuasiTest_squadron_single' path: 'tc_QuasiTest_squadron_single.test'
 _RRwnELSjEeWLOcoTTjI_-g	// kind: 'test' name: 'tc_QuasiTest_squadron_all' path: 'tc_QuasiTest_squadron_all.test'
 _oH7lELY5EeW4mI89TWHy4g	// kind: 'test' name: 'tc_QuasiTest_squadron_mono' path: 'tc_QuasiTest_squadron_mono.test'
+_QDGUcPhjEeW0569PEPqHcw	// kind: 'test' name: 'tc_QuasiTest_squadron_real' path: 'tc_QuasiTest_squadron_real.test'
 
 ------=_testcase-items-62c497da-4241-31f4-811a-6b453a3ecff8--
