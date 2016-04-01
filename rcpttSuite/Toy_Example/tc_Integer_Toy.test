@@ -6,7 +6,7 @@ Element-Version: 3.0
 External-Reference: 
 Id: _RHj9IDosEeWfbOeCsfgo5Q
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 4/1/16 2:45 PM
+Save-Time: 4/1/16 4:53 PM
 Testcase-Type: ecl
 
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
@@ -30,7 +30,16 @@ run-verify-agree-single-layer
 run-verify-agree-all-layers
 
 // Check Realizability
-run-agree-realizability [select-outline-item "Package Public Integer_Toy_public/System Impl top_level.Impl"] | verify-true
+run-agree-realizability [select-outline-item "Package Public Integer_Toy_public/System A"] | verify-true
+is-realizability-valid | verify-true
+
+run-agree-realizability [select-outline-item "Package Public Integer_Toy_public/System B"] | verify-true
+is-realizability-valid | verify-true
+
+run-agree-realizability [select-outline-item "Package Public Integer_Toy_public/System C"] | verify-true
+is-realizability-valid | verify-true
+
+run-agree-realizability [select-outline-item "Package Public Integer_Toy_public/System top_level"] | verify-true
 is-realizability-valid | verify-true
 
 // Verify Monolitically

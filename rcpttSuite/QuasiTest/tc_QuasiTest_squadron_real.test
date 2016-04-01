@@ -1,0 +1,40 @@
+--- RCPTT testcase ---
+Format-Version: 1.0
+Element-Name: tc_QuasiTest_squadron_real
+Element-Type: testcase
+Element-Version: 3.0
+External-Reference: 
+Id: _QDGUcPhjEeW0569PEPqHcw
+Runtime-Version: 2.0.0.201506120617
+Save-Time: 4/1/16 4:44 PM
+Testcase-Type: ecl
+
+------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
+Content-Type: text/ecl
+Entry-Name: .content
+
+// ----------------------------------------------------------------------------
+// Regression Test for QuasiTest package
+//
+// 
+// Executes the AGREE verification for Realizability
+//
+// ----------------------------------------------------------------------------
+
+test-setup
+
+select-aadl-file "QuasiTest/packages/QuasiTest.aadl"
+
+// Check Realizability
+run-agree-realizability [get-outline-item "Package Public QuasiTest_public/System Squadron"] | verify-true
+is-realizability-valid
+
+run-agree-realizability [get-outline-item "Package Public QuasiTest_public/System Formation"] | verify-true
+is-realizability-invvalid
+
+run-agree-realizability [get-outline-item "Package Public QuasiTest_public/System Vehicle"] | verify-true
+is-realizability-valid
+
+test-teardown
+
+------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac--
