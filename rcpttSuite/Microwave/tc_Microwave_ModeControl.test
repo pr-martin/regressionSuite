@@ -6,7 +6,7 @@ Element-Version: 3.0
 External-Reference: 
 Id: _27ldQLZSEeWCd_MF12OcJA
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 1/8/16 2:03 PM
+Save-Time: 4/1/16 2:45 PM
 Testcase-Type: ecl
 
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
@@ -26,20 +26,20 @@ test-setup
 select-aadl-file "Microwave/Microwave_SEng5861.aadl"
 
 // Check Realizability
-run-agree-realizability [select-sys-impl "Package Public Microwave_SEng5861_public/System Impl Mode_Control.Impl"] | verify-true
+run-agree-realizability [select-outline-item "Package Public Microwave_SEng5861_public/System Impl Mode_Control.Impl"] | verify-true
 verify-all-results
 
 // Check Monolithic
-run-agree-monolithically [select-sys-impl "Package Public Microwave_SEng5861_public/System Impl Mode_Control.Impl"] | verify-true
+run-agree-monolithically [select-outline-item "Package Public Microwave_SEng5861_public/System Impl Mode_Control.Impl"] | verify-true
 verify-all-results
 
 // Check Single Layer
-run-agree-single-layer [select-sys-impl "Package Public Microwave_SEng5861_public/System Impl Mode_Control.Impl"] | verify-true
+run-agree-single-layer [select-outline-item "Package Public Microwave_SEng5861_public/System Impl Mode_Control.Impl"] | verify-true
 verify-all-results
 
 
 // Run All Layers
-run-agree-all-layers [select-sys-impl "Package Public Microwave_SEng5861_public/System Impl Mode_Control.Impl"] | verify-true
+run-agree-all-layers [select-outline-item "Package Public Microwave_SEng5861_public/System Impl Mode_Control.Impl"] | verify-true
 verify-all-results
 
 

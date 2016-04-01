@@ -6,7 +6,7 @@ Element-Version: 3.0
 External-Reference: 
 Id: _RHj9IDosEeWfbOeCsfgo5Q
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 1/11/16 10:18 AM
+Save-Time: 4/1/16 2:45 PM
 Testcase-Type: ecl
 
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
@@ -30,11 +30,11 @@ run-verify-agree-single-layer
 run-verify-agree-all-layers
 
 // Check Realizability
-run-agree-realizability [select-sys-impl "Package Public Integer_Toy_public/System Impl top_level.Impl"] | verify-true
+run-agree-realizability [select-outline-item "Package Public Integer_Toy_public/System Impl top_level.Impl"] | verify-true
 is-realizability-valid | verify-true
 
 // Verify Monolitically
-run-agree-monolithically [select-sys-impl "Package Public Integer_Toy_public/System Impl top_level.Impl"] | verify-true
+run-agree-monolithically [select-outline-item "Package Public Integer_Toy_public/System Impl top_level.Impl"] | verify-true
 check-agree-result "Contract Guarantees" "4 Valid" | verify-true
 is-composition-consistent | verify-true
 is-component-consistent | verify-true

@@ -6,7 +6,7 @@ Element-Type: context
 Element-Version: 2.0
 Id: _L6g0ADotEeWfbOeCsfgo5Q
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 8/24/15 3:20 PM
+Save-Time: 4/1/16 2:50 PM
 
 ------=_.description-216f885c-d591-38ce-8ea2-e4f8cb4d6ffa
 Content-Type: text/plain
@@ -60,10 +60,10 @@ proc "select-aadl-file" [val filename] {
 //   see workbenchContext.ctx
 //
 // Arguments:
-// str implName - The System Implementation name to select
+// str item - The outline item name to select
 // ----------------------------------------------------------------------------
-proc "select-sys-impl" [val implName] {
-    get-view Outline | get-tree | get-item $implName | select-item 
+proc "select-outline-item" [val itemName] {
+    get-view Outline | get-tree | get-item $itemName | select-item 
 }
 
 
@@ -80,13 +80,13 @@ proc "select-sys-impl" [val implName] {
 //   see workbenchContext.ctx
 //
 // Arguments:
-// str implName - The System Implementation name to select
+// str itmeName - The outline item name to select
 //
 // Return:
 // item
 // ----------------------------------------------------------------------------
-proc "get-sys-impl" [val implName] {
-    get-view Outline | get-tree | get-item $implName
+proc "get-outline-item" [val itemName] {
+    get-view Outline | get-tree | get-item $itemName
 }
 
 // ----------------------------------------------------------------------------

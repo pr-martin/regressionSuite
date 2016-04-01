@@ -6,7 +6,7 @@ Element-Version: 3.0
 External-Reference: 
 Id: _Roge4LS-EeWLOcoTTjI_-g
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 2/1/16 3:30 PM
+Save-Time: 4/1/16 2:45 PM
 Testcase-Type: ecl
 
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
@@ -25,7 +25,7 @@ test-setup
 
 select-aadl-file "QFCS_V2/packages/FCS.aadl"
 
-run-agree-all-layers [select-sys-impl "Package Public FCS_public/System Impl FCS.impl"] | verify-true
+run-agree-all-layers [select-outline-item "Package Public FCS_public/System Impl FCS.impl"] | verify-true
 
 // Guarantees
 is-result-valid "Contract Guarantees/ lemma: valids monotonically decreasing" | verify-true
